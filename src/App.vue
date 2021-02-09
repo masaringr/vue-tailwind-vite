@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white h-screen">
-        <header class="fixed w-full flex justify-between px-16 py-4 border-b border-gray-200 bg-white">
+        <header class="z-10 fixed w-full flex justify-between px-16 py-4 border-b border-gray-200 bg-white">
             <div class="flex items-center cursor-pointer">
                 <div class="w-9 mr-4">
                     <img class="w-full" src="./assets/logo-uj.png" alt="">
@@ -16,7 +16,7 @@
                 <a href="#product" @click="toProduct" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Product</a>
                 <a href="#mitra" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Mitra</a>
                 <div class="border-l border-gray-200 pl-6">
-                    <a href="login.html" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Login</a>
+                    <a href="login.html" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Sign in</a>
                 </div>
             </div>
         </header>
@@ -44,7 +44,7 @@
                     <h2 class="text-gray-800 font-bold text-3xl capitalize tracking-widest">our product</h2>
                 </div>
                 <div class="grid grid-cols-3 gap-12 text-center py-4 px-16">
-                    <div class="p-2 cursor-pointer">
+                    <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
                                 <img class="w-full h-full img-fit-div rounded" src="./assets/display3.webp" alt="">
@@ -53,7 +53,7 @@
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                         </div>
                     </div>
-                    <div class="p-2 cursor-pointer">
+                    <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
                                 <img class="w-full h-full img-fit-div rounded" src="./assets/display.webp" alt="">
@@ -62,7 +62,7 @@
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                         </div>
                     </div>
-                    <div class="p-2 cursor-pointer">
+                    <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
                                 <img class="w-full h-full img-fit-div rounded" src="./assets/display2.webp" alt="">

@@ -12,3 +12,19 @@
 html{
   scroll-behavior: smooth;
 }
+
+.my-text-indigo{
+  color: #5c5d97 !important;
+}
+
+.my-bg-indigo{
+  background-color: #5c5d97 !important;
+}
+
+.my-text-white{
+  color: #f1f0f2 !important;
+}
+
+.my-bg-white{
+  background-color: #f1f0f2 !important;
+}
