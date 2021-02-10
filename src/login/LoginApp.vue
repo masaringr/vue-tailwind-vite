@@ -13,12 +13,12 @@
                 <div class="relative mb-4">
                     <label for="username" class="block mb-1 text-gray-600 font-semibold text-md">Username</label>
                     <input v-model="uname" id="username" type="text" placeholder="" 
-                        class="border font-medium text-gray-500 border-gray-400 appearance-none rounded-md w-full px-3 py-2 focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600">
+                        class="border-2 font-medium text-gray-500 border-gray-300 appearance-none rounded-md w-full px-3 py-2 focus:border-indigo-300 focus:outline-none active:outline-none active:border-indigo-600">
                 </div>
                 <div class="relative mb-4">
                     <label for="password" class="block mb-1 text-gray-600 font-semibold text-md">Password</label>
                     <input v-model="pwd" id="password" type="password" placeholder="" 
-                        class="border font-medium text-gray-500 border-gray-400 appearance-none rounded-md w-full px-3 py-2 focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600">
+                        class="border-2 font-medium text-gray-500 border-gray-300 appearance-none rounded-md w-full px-3 py-2 focus:border-indigo-300 focus:outline-none active:outline-none active:border-indigo-600">
                 </div>
                 <div class="text-right mb-8">
                     <a @click="forgotPwd" class="cursor-pointer text-indigo-500 hover:text-indigo-400 text-md">forgot your password?</a>

@@ -2,11 +2,11 @@
     <div class="bg-white h-screen">
         <header class="z-10 fixed w-full flex justify-between px-16 py-4 border-b border-gray-200 bg-white">
             <div class="flex items-center cursor-pointer">
-                <div class="w-9 mr-4">
+                <div class="w-12 mr-4">
                     <img class="w-full" src="./assets/logo-uj.png" alt="">
                 </div>
                 <div class="h-100 border-l border-gray-200 pl-4">
-                    <h4 class="text-xs tracking-wider text-gray-600 font-semibold">Ultra</h4>
+                    <h4 class="text-xs tracking-wider text-gray-600 font-semibold">Ultra's</h4>
                     <h4 class="text-xs tracking-wider text-gray-600 font-semibold">Integrated</h4>
                     <h4 class="text-xs tracking-wider text-gray-600 font-semibold">System</h4>
                 </div>
