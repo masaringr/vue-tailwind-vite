@@ -47,6 +47,7 @@ export default {
     methods: {
         signin() {
             alert('go '+ this.uname+"-"+this.pwd);
+            window.location.href = "/uis/dashboard.html"
         },
 
         forgotPwd() {

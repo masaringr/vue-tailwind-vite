@@ -1,3 +1,3 @@
 <template>
-    dashboard
+    konten dashboard
 </template>

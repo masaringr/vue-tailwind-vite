@@ -16,7 +16,7 @@
                 <a href="#product" @click="toProduct" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Product</a>
                 <a href="#mitra" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Mitra</a>
                 <div class="border-l border-gray-200 pl-6">
-                    <a href="login.html" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Sign in</a>
+                    <a href="/uis/login.html" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Sign in</a>
                 </div>
             </div>
         </header>
@@ -47,7 +47,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display3.webp" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/display3.png" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">Westgate</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -56,7 +56,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display.webp" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/display.png" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">safe mobile</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -65,7 +65,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display2.webp" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/display2.png" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">E-POD</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>

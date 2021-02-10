@@ -1,3 +1,3 @@
 <template>
-    report
+    konten report
 </template>

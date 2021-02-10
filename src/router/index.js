@@ -7,24 +7,24 @@ import cTransaksi from "../components/contentTransaksi.vue";
 
 const routes = [
   {
-    path: "/dashboard.html",
+    path: "/uis/dashboard.html",
     name: "iDashboard",
     component: cDashboard,
-    redirect: "/dashboard"
+    redirect: "/uis/dashboard"
   }, {
-    path: "/dashboard",
+    path: "/uis/dashboard",
     name: "dashboard",
     component: cDashboard,
   }, {
-    path: "/report",
+    path: "/uis/report",
     name: "report",
     component: cReport,
   }, {
-    path: "/master",
+    path: "/uis/master",
     name: "master",
     component: cMaster,
   }, {
-    path: "/transaksi",
+    path: "/uis/transaksi",
     name: "transaksi",
     component: cTransaksi,
   }

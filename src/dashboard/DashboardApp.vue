@@ -21,7 +21,7 @@
                     <!-- main menu -->
                     <div class="px-4 pt-24 pb-20 h-full">
                         <ul>
-                            <router-link to="/dashboard" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link to="/uis/dashboard" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive && 'router-link-active', isExactActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div v-if="isExactActive" class="mr-2">
@@ -44,7 +44,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link to="/report" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link to="/uis/report" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive && 'router-link-active', isExactActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div v-if="isExactActive" class="mr-2">
@@ -73,7 +73,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link to="/transaksi" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link to="/uis/transaksi" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive && 'router-link-active', isExactActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div v-if="isExactActive" class="mr-2">
@@ -94,7 +94,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link to="/master" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link to="/uis/master" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive && 'router-link-active', isExactActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div v-if="isExactActive" class="mr-2">

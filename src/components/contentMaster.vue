@@ -1,3 +1,3 @@
 <template>
-    master
+    konten master
 </template>
