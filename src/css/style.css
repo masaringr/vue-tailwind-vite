@@ -4,27 +4,80 @@
 @tailwind utilities;
 
 @layer utilities {
-    .img-fit-div {
-      object-fit: cover;
-    }
+  [v-cloak] {
+    display: none;
+  }
+
+  .img-fit-div {
+    object-fit: cover;
+  }
+
+  html{
+    scroll-behavior: smooth;
+  }
+  
+  .my-text-indigo{
+    color: #5c5d97;
+  }
+  
+  .my-bg-indigo{
+    background-color: #5c5d97;
+  }
+  
+  .my-text-white{
+    color: #f1f0f2;
+  }
+  
+  .my-border-indigo{
+    --tw-border-opacity: 1;
+    border-color: rgba(92, 93, 151, var(--tw-border-opacity));
+  }
+  
+  .my-bg-indigo:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgba(92, 93, 151, var(--tw-bg-opacity));
+  }
+  
+  .my-bg-white{
+    background-color: #f1f0f2;
+  }
+  
+  .h-fit-9--5{
+    height: calc(100vh - 9.5rem);
+  }
+  .h-fit-10--5{
+    height: calc(100vh - 10.5rem);
+  }
+
+  select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+  }
+
+  .h-100-10{
+    height: 90%;
+  }
 }
 
-html{
-  scroll-behavior: smooth;
-}
+@layer components {
+  th, td{
+    @apply border text-sm py-1 px-3 text-gray-500;
+  }
 
-.my-text-indigo{
-  color: #5c5d97 !important;
-}
+  tbody>tr:nth-child(even) {
+    @apply bg-gray-100;
+  }
 
-.my-bg-indigo{
-  background-color: #5c5d97 !important;
-}
+  tbody>tr{
+    @apply hover:bg-gray-200
+  }
+  
+  th{
+    @apply border-b-2 whitespace-nowrap;
+  }
 
-.my-text-white{
-  color: #f1f0f2 !important;
-}
-
-.my-bg-white{
-  background-color: #f1f0f2 !important;
+  button:focus{
+    @apply focus:outline-none
+  }
 }

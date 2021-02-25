@@ -16,7 +16,7 @@
                 <a href="#product" @click="toProduct" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Product</a>
                 <a href="#mitra" class="mr-6 tracking-wide text-indigo-800 hover:text-indigo-500 font-semibold">Mitra</a>
                 <div class="border-l border-gray-200 pl-6">
-                    <a href="/uis/login.html" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Sign in</a>
+                    <a :href="baseURL+'/login.html'" class="w-24 bg-indigo-500 rounded-lg font-light text-white px-4 py-2 tracking-wider hover:bg-indigo-400 focus:outline-none">Sign in</a>
                 </div>
             </div>
         </header>
@@ -102,7 +102,7 @@ export default {
     data: function () {
         return{
             text1: "",
-            
+            baseURL: ""
         }
     },
 
