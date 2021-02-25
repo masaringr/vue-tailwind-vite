@@ -6,4 +6,4 @@ dist-ssr
 .vscode
 debug.log
 .gitignore
-/src/assets/*
+# /src/assets/*
