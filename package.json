@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/"
+    "build": "vite build --base=/uis"
   },
   "dependencies": {
     "@popperjs/core": "^2.8.2",
+    "@vuelidate/core": "^2.0.0-alpha.14",
+    "@vuelidate/validators": "^2.0.0-alpha.12",
     "moment": "^2.29.1",
+    "toastify-js": "^1.9.3",
     "v-calendar": "^3.0.0-alpha.3",
     "vue": "^3.0.5",
     "vue-final-modal": "^1.8.7",

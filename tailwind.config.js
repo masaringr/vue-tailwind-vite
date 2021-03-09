@@ -6,11 +6,19 @@ module.exports = {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']
       },
+      backgroundImage: theme => ({
+        'check': "url('./src/assets/check.svg')",
+      })
     },
   },
   variants: {
-    extend: {},
-    scrollbar: ['rounded']
+    extend: {
+      backgroundColor: ['checked', 'disabled'],
+      borderColor: ['checked', 'disabled'],
+      cursor: ['disabled'],
+      textColor: ['disabled'],
+    },
+    scrollbar: ['rounded'],
   },
   plugins: [
     require('tailwind-scrollbar')

@@ -63,13 +63,13 @@ const routes = [
     meta: {
       deskripsi : "profile"
     },
-    redirect: baseURL+"/profile/pdata",
+    redirect: baseURL+"/profile/personal_data",
     children: [{
-      path: 'pdata',
+      path: 'personal_data',
       name: 'c_pdata',
       component: pData
     },{
-      path: 'cpassword',
+      path: 'change_password',
       name: 'c_cpassword',
       component: pChangePass
     }]

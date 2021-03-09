@@ -21,10 +21,10 @@
             </div>
         </header>
         <main class="px-16 h-full">
-            <section id="home" class="pt-20 grid grid-cols-2 gap-12 h-full flex items-center">
+            <section id="home" class="pt-20 grid grid-cols-2 gap-12 h-full items-center">
                 <div class="flex justify-center">
                     <div class="pl-12">
-                        <h2 class="font-semibold text-4xl tracking-wider text-gray-800 mb-3">Portal Penghubung<br>Mitra dengan Ultrajaya</h2>
+                        <h2 class="font-semibold text-4xl tracking-wide text-gray-800 mb-3">Portal Penghubung<br>Mitra dengan Ultrajaya</h2>
                         <h4 class="font-light text-lg tracking-wider text-gray-500">Semua aktifitas Mitra Ultrajaya<br>
                             akan difasilitasi dengan portal ini.<br>
                             dengan demikian, kualitas kerjasama<br>
@@ -34,8 +34,8 @@
                     </div>
                 </div>
                 <div class="flex justify-left">
-                    <div>
-                        <img src="./assets/bg-home.png" alt="">
+                    <div class="w-10/12">
+                        <img class="w-100 h-auto" src="./assets/bg-home.png" alt="">
                     </div>
                 </div>
             </section>
@@ -47,7 +47,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display3.png" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/thumb-westgate.jpg" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">Westgate</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -56,7 +56,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display.png" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/thumb-safemobile.jpg" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">safe mobile</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -65,7 +65,7 @@
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                         <div class="bg-white rounded-md shadow-md p-4">
                             <div class="h-60 w-auto mb-4">
-                                <img class="w-full h-full img-fit-div rounded" src="./assets/display2.png" alt="">
+                                <img class="w-full h-full img-fit-div rounded" src="./assets/thumb-epod.jpg" alt="">
                             </div>
                             <h4 class="capitalize font-semibold mb-2 text-indigo-800">E-POD</h4>
                             <p class="font-extralight text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>

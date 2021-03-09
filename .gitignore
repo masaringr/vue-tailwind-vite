@@ -7,3 +7,4 @@ dist-ssr
 debug.log
 .gitignore
 /src/assets/*
+beforeBuild.txt
