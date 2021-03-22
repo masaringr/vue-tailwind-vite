@@ -109,7 +109,32 @@ export default {
         return{
             iconLoading: false,
             text1: "",
-            baseURL: ""
+            baseURL: "",
+            userLogin: [{
+                id: "1111",
+                username: "1111",
+                password: "1111",
+                displayName: "Super Admin",
+                tipe: "admin"
+            }, {
+                id: "2222",
+                username: "2222",
+                password: "2222",
+                displayName: "vendor 1",
+                tipe: "vendor"
+            }, {
+                id: "3333",
+                username: "3333",
+                password: "3333",
+                displayName: "distributor 1",
+                tipe: "distributor"
+            }, {
+                id: "1231",
+                username: "1231",
+                password: "ujmi",
+                displayName: "VIARDI",
+                tipe: "distributor"
+            }]
         }
     },
 
@@ -123,30 +148,14 @@ export default {
             if (this.validate.$invalid)
                 return
             this.iconLoading = true;
-            let amv = new mv();
 
-            amv.SetData3(1, 1, this.uname);
-            amv.SetData3(2, 1, this.pwd);
-
-            var aoth = {
-                sid: 0,
-                serverdb: "1000PO",
-                sp: "[dbo].[master_read]",
-                mvitem: amv.Contents(),
-                action: "1",
-                othval: "user",
-                key: "",
-            }
-
-            panggilsafe(aoth)
-            .then((iMsg) => {
-                if (iMsg.Message) {
-                    this.iconLoading = false;
-                    alert(iMsg.Message);
-                } else if (iMsg.errors) {
+            const users = this.userLogin.filter(user => user.username === this.formData.uname);
+            if (users.length) {
+                const passwords = users.filter(user => user.password === this.formData.pwd);
+                if (!passwords.length) {
                     this.iconLoading = false;
                     Toastify({
-                        text: iMsg.errors[0].message,
+                        text: "Kombinasi username & password salah.",
                         duration: 3000,
                         newWindow: true,
                         close: false,
@@ -154,28 +163,87 @@ export default {
                         stopOnFocus: true
                     }).showToast();
                 } else {
+                    const userValid = this.userLogin.filter(user => (user.username === this.formData.uname) && (user.password === this.formData.pwd));
+                    setCookie("displayname", userValid[0].displayName);
+                    setCookie("userid", userValid[0].id);
+                    setCookie("tipelogin", userValid[0].tipe);
                     this.iconLoading = false;
-                    var anama = iMsg.data.nilai.Table[0].nama;
-                    var acompany = iMsg.data.nilai.Table[0].idvendor;
-                    var asesid = iMsg.data.nilai.Table[0].sid;
-                    var namavendor = iMsg.data.nilai.Table[0].nama_vendor;
-                    
-                    setCookie("uiqid", asesid);
-                    setCookie("nama", anama);
-                    setCookie("co", acompany);
-                    setCookie("nmvendor", namavendor);
-                    setCookie("uid", this.uname);
 
                     window.location.href = this.baseURL+"/dashboard.html"
                 }
-            })
-            .catch((iMsg) => {
-                console.log(iMsg)
-            });
+            } else {
+                this.iconLoading = false;
+                Toastify({
+                    text: "User '" + this.formData.uname + "' belum terdaftar.",
+                    duration: 3000,
+                    newWindow: true,
+                    close: false,
+                    className: "danger-notif",
+                    stopOnFocus: true
+                }).showToast();
+            }
+
+
+            // let amv = new mv();
+
+            // amv.SetData3(1, 1, this.uname);
+            // amv.SetData3(2, 1, this.pwd);
+
+            // var aoth = {
+            //     sid: 0,
+            //     serverdb: "1000PO",
+            //     sp: "[dbo].[master_read]",
+            //     mvitem: amv.Contents(),
+            //     action: "1",
+            //     othval: "user",
+            //     key: "",
+            // }
+
+            // panggilsafe(aoth)
+            // .then((iMsg) => {
+            //     if (iMsg.Message) {
+            //         this.iconLoading = false;
+            //         alert(iMsg.Message);
+            //     } else if (iMsg.errors) {
+            //         this.iconLoading = false;
+            //         Toastify({
+            //             text: iMsg.errors[0].message,
+            //             duration: 3000,
+            //             newWindow: true,
+            //             close: false,
+            //             className: "danger-notif",
+            //             stopOnFocus: true
+            //         }).showToast();
+            //     } else {
+            //         this.iconLoading = false;
+            //         var anama = iMsg.data.nilai.Table[0].nama;
+            //         var acompany = iMsg.data.nilai.Table[0].idvendor;
+            //         var asesid = iMsg.data.nilai.Table[0].sid;
+            //         var namavendor = iMsg.data.nilai.Table[0].nama_vendor;
+                    
+            //         setCookie("uiqid", asesid);
+            //         setCookie("nama", anama);
+            //         setCookie("co", acompany);
+            //         setCookie("nmvendor", namavendor);
+            //         setCookie("uid", this.uname);
+
+            //         window.location.href = this.baseURL+"/dashboard.html"
+            //     }
+            // })
+            // .catch((iMsg) => {
+            //     console.log(iMsg)
+            // });
         },
 
         forgotPwd() {
-            alert('forgot pwd');
+            Toastify({
+                text: "Saat ini fitur belum tersedia.",
+                duration: 3000,
+                newWindow: true,
+                close: false,
+                className: "danger-notif",
+                stopOnFocus: true
+            }).showToast();
         }
     },
 

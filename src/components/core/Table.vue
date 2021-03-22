@@ -3,12 +3,12 @@
         <div class="grid grid-cols-6 gap-4 mb-4">
             <div class="col-span-2">
                 <div>
-                    <input v-model="searchData.nilai" type="text" class="py-1 px-3 text-normal border rounded-md text-gray-500 border-gray-300 focus:border-indigo-800 focus:outline-none" placeholder="Cari data...">
+                    <input v-model="searchData.nilai" type="text" class="py-2 px-3 text-sm border rounded-md text-gray-500 border-gray-300 focus:border-indigo-800 focus:outline-none" placeholder="Cari data...">
                 </div>
             </div>
             <div class="col-span-4">
                 <div class="flex justify-end">
-                    <button class="text-base capitalize py-1 px-4 bg-red-600 rounded whitespace-nowrap font-light text-white tracking-wider hover:bg-red-500 focus:outline-none">export</button>
+                    <button class="text-base capitalize py-1 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
                 </div>
             </div>
         </div>
@@ -36,6 +36,13 @@
                             </div>
                             <div v-else-if="col.tipedata === 'date'">
                                 <span>{{formatTanggal(row[col.id])}}</span>
+                            </div>
+                            <div v-else-if="col.tipedata === 'foto'">
+                                <span v-if="row[col.id] === 'add-image.png'">-</span>
+                                <span v-else @click="showPhoto(row[col.id])" class="cursor-pointer flex items-center text-indigo-800 text-sm font-semibold tracking-wide border-2 border-indigo-800 rounded-md px-1 py-0.5">
+                                    <svg class="mr-1 stroke-current icon line text-indigo-800" width="24" height="24" id="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><polyline points="3.29 19.71 9 14 11 16 14 13 20.71 19.71" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><circle cx="11" cy="9" r="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></circle></svg>
+                                    View
+                                </span>
                             </div>
                             <div v-else>
                                 <span>{{row[col.id]}}</span>
@@ -201,6 +208,10 @@ export default {
         showLink(id) {
             console.log('ini id ', id);
             this.$emit('showlink', id);
+        },
+
+        showPhoto(filename) {
+            this.$emit('showphoto', filename);
         }
     }
 }

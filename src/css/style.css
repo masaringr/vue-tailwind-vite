@@ -70,9 +70,15 @@
   .h-100-10{
     height: 90%;
   }
+  .min-h-56{
+    min-height: 13rem;
+  }
 }
 
 @layer components {
+  .min-h-53{
+    min-height: 13rem
+  }
   th, td{
     @apply border text-sm py-1 px-3 text-gray-500;
   }

@@ -6,6 +6,7 @@ import cMaster from "../components/contentMaster.vue";
 import cTransaksi from "../components/contentTransaksi.vue";
 import cProfile from "../components/contentProfile.vue";
 import rListPO from "../components/reports/r_listPO.vue";
+import rSuratJalan from "../components/reports/r_suratJalan.vue";
 import rOther from "../components/reports/r_other.vue";
 import pData from "../components/profile/p_personalData.vue";
 import pChangePass from "../components/profile/p_changePassword.vue";
@@ -37,6 +38,10 @@ const routes = [
       path: 'listpo',
       name: 'c_listpo',
       component: rListPO
+    },{
+      path: 'surat_jalan',
+      name: 'c_suratjalan',
+      component: rSuratJalan
     },{
       path: 'other',
       name: 'c_other',

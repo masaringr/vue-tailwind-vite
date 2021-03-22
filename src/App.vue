@@ -41,7 +41,7 @@
             </section>
             <section id="div-product" class="bg-gray-100 -mx-16 pb-12">
                 <div class="w-full text-center py-6">
-                    <h2 class="text-gray-800 font-bold text-3xl capitalize tracking-widest">our product</h2>
+                    <h2 class="text-gray-800 font-bold text-3xl capitalize tracking-wide">our product</h2>
                 </div>
                 <div class="grid grid-cols-3 gap-12 text-center py-4 px-16">
                     <div class="p-2 cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
@@ -75,7 +75,7 @@
             </section>
             <section id="mitra" class="-mx-16 pb-16">
                 <div class="w-full text-center py-6">
-                    <h2 class="text-gray-800 font-bold text-3xl capitalize tracking-widest">our mitra</h2>
+                    <h2 class="text-gray-800 font-bold text-3xl capitalize tracking-wide">our mitra</h2>
                 </div>
                 <div class="py-4 px-16">
                     <div class="flex items-center">

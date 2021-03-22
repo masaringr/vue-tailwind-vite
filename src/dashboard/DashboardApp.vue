@@ -20,7 +20,42 @@
 
                     <!-- main menu -->
                     <div class="px-4 pt-24 pb-20 h-full">
-                        <ul>
+                        <ul v-if="tipeLogin === 'distributor'">
+                            <router-link :to="baseURL+'/dashboard'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                                <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
+                                    <div class="flex items-center p-2">
+                                        <div class="mr-2">
+                                            <svg :class="isActive ? 'my-text-indigo' : 'my-text-white'" class="stroke-current icon line" width="24" height="24" id="dashboard" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <rect x="3" y="3" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                                                <rect x="14" y="3" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                                                <rect x="3" y="16" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                                                <rect x="14" y="12" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                                            </svg>
+                                        </div>
+                                        <span :class="isActive ? 'my-text-indigo font-semibold' : 'my-text-white font-normal'" class="capitalize tracking-wider text-sm">dashboard</span>
+                                    </div>
+                                </li>
+                            </router-link>
+                            <router-link :to="baseURL+'/report/surat_jalan'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                                <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
+                                    <div class="flex items-center p-2">
+                                        <div class="mr-2">
+                                            <svg :class="isActive ? 'my-text-indigo' : 'my-text-white'" class="stroke-current icon line" width="24" height="24" id="present-line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M4,4H20a0,0,0,0,1,0,0V16a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V4A0,0,0,0,1,4,4Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                                                <line x1="3" y1="4" x2="21" y2="4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                                <line x1="10.4" y1="17" x2="8" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                                <line x1="13.6" y1="17" x2="16" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                                <line x1="12" y1="13" x2="12" y2="8" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                                <line x1="16" y1="13" x2="16" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                                <line x1="8" y1="13" x2="8" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                                            </svg>
+                                        </div>
+                                        <span :class="isActive ? 'my-text-indigo font-semibold' : 'my-text-white font-normal'" class="capitalize tracking-wider text-sm">report</span>
+                                    </div>
+                                </li>
+                            </router-link>
+                        </ul>
+                        <ul v-else>
                             <router-link :to="baseURL+'/dashboard'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
@@ -86,7 +121,7 @@
 
                     <!-- button logout -->
                     <div class="absolute bottom-0 left-0 w-full rounded-b-2xl my-bg-indigo p-4">
-                        <div class="flex border-2 border-transparent hover:border-gray-200 items-center justify-center p-2 cursor-pointer bg-opacity-20 bg-purple-100 rounded-xl">
+                        <div @click="signOut" class="flex border-2 border-transparent hover:border-gray-200 items-center justify-center p-2 cursor-pointer bg-opacity-20 bg-purple-100 rounded-xl">
                             <div class="mr-2">
                                 <svg class="icon line" width="24" height="24" id="sign-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <path d="M20.24,19.19l-6,1.5a1,1,0,0,1-1.24-1V4.28a1,1,0,0,1,1.24-1l6,1.5a1,1,0,0,1,.76,1V18.22A1,1,0,0,1,20.24,19.19ZM13,6H10A1,1,0,0,0,9,7V8m0,8v1a1,1,0,0,0,1,1h3" style="fill: none; stroke: rgb(241, 240, 242); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
@@ -111,7 +146,7 @@
                             <div class="px-4">
                                 <router-link :to="baseURL+'/profile'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                     <div class="flex items-center py-2 px-4 cursor-pointer rounded-xl hover:bg-purple-50 border-2 border-purple-50 hover:border-purple-200">
-                                        <h4 class="mr-4 font-light text-indigo-800 capitalize tracking-wide">hi, eichiro oda</h4>
+                                        <h4 class="mr-4 font-light text-indigo-800 capitalize tracking-wide">hi, {{displayName}}</h4>
                                         <div>
                                             <svg id="bold" enable-background="new 0 0 32 32" 
                                                 height="36" 
@@ -150,7 +185,10 @@ export default {
         return{
             text1: "",
             judul: "",
-            baseURL: ""
+            baseURL: "",
+            displayName: "",
+            userID: "",
+            tipeLogin: ""
         }
     },
 
@@ -165,11 +203,23 @@ export default {
     },
 
     methods: {
-        
+        signOut() {
+            deleteCookie('displayname');
+            deleteCookie('userid');
+            deleteCookie('tipelogin');
+
+            window.location.href = "/";
+        }
     },
 
     mounted() {
         
+    },
+
+    beforeMount() {
+        this.displayName = getCookie('displayname');
+        this.userID = getCookie('userid');
+        this.tipeLogin = getCookie('tipelogin');
     }
 }
 </script>
