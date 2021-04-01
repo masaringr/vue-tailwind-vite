@@ -8,7 +8,7 @@
             </div>
             <div class="col-span-4">
                 <div class="flex justify-end">
-                    <button class="text-base capitalize py-1 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
+                    <button class="text-base capitalize py-1.5 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
                 </div>
             </div>
         </div>
@@ -30,6 +30,11 @@
                                 <a v-if="row[col.id]" :href="row[col.id]" target="_blank">
                                     <img src="../../assets/pdf24.png" alt="">
                                 </a>
+                            </div>
+                            <div v-if="col.tipedata === 'pdf_blob'">
+                                <div v-if="row[col.id]" class="cursor-pointer" @click="downloadBlobFile(row[col.id], row['ID_DO']+'.pdf')">
+                                    <img src="../../assets/pdf24.png" alt="">
+                                </div>
                             </div>
                             <div v-else-if="col.tipedata === 'link_detail'">
                                 <span @click="showLink(row[col.id])" class="cursor-pointer font-semibold text-blue-500">{{row[col.id]}}</span>
@@ -212,7 +217,14 @@ export default {
 
         showPhoto(filename) {
             this.$emit('showphoto', filename);
-        }
+        },
+        downloadBlobFile(theBlob, fileName) {
+            let obj = {
+                blob: theBlob,
+                filename: fileName
+            }
+            this.$emit('blobToFile', obj);
+        },
     }
 }
 </script>

@@ -36,7 +36,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link :to="baseURL+'/report/surat_jalan'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/reportdist'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">

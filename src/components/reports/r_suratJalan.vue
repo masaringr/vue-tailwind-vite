@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <MyTable :obj="objTable" @showphoto="showPhoto"></MyTable>
+        <MyTable :obj="objTable" @showphoto="showPhoto" @blobToFile="downloadBlobFile"></MyTable>
     </div>
     <vue-final-modal v-model="showModal">
         <div class="flex justify-center items-center h-screen">
@@ -138,6 +138,10 @@ export default {
             objTable: {
                 tabledata:{
                     columns: [{
+                        id : "FilePDF",
+                        deskripsi : "File",
+                        tipedata : "pdf_blob"
+                    },{
                         id : "TglDO",
                         deskripsi : "Tgl. DO",
                         tipedata : "date"
@@ -198,6 +202,35 @@ export default {
     },
 
     methods: {
+        downloadBlobFile(obj) {
+            // var myBlob = new File([obj.blob], {type: "application/pdf"});
+            // myBlob.lastModifiedDate = new Date();
+            // myBlob.name = obj.filename;
+            // myBlob.contentType = "application/pdf";
+            // myBlob.type = "application/pdf";
+
+            // "application/pdf"
+            const myBlob = new File([obj.blob], 
+                obj.filename, { 
+                    lastModified: new Date().getTime(), 
+                    type: "application/pdf"
+                }
+            )
+
+            console.log(myBlob);
+
+            const link = document.createElement('a');
+            // create a blobURI pointing to our Blob
+            link.href = URL.createObjectURL(myBlob);
+            link.target = '_blank';
+            link.download = obj.filename;
+            // some browser needs the anchor to be in the doc
+            document.body.append(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(link.href);
+        },
+
         updateCurrentPage() {
             this.currentPage = 1;
         },

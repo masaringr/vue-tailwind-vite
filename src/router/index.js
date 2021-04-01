@@ -8,6 +8,7 @@ import cProfile from "../components/contentProfile.vue";
 import rListPO from "../components/reports/r_listPO.vue";
 import rSuratJalan from "../components/reports/r_suratJalan.vue";
 import rOther from "../components/reports/r_other.vue";
+import rInvoice from "../components/reports/r_invoice.vue";
 import pData from "../components/profile/p_personalData.vue";
 import pChangePass from "../components/profile/p_changePassword.vue";
 
@@ -39,13 +40,26 @@ const routes = [
       name: 'c_listpo',
       component: rListPO
     },{
+      path: 'other',
+      name: 'c_other',
+      component: rOther
+    }]
+  }, {
+    path: baseURL+"/reportdist",
+    name: "reportdist",
+    component: cReport,
+    redirect: baseURL+"/reportdist/surat_jalan",
+    meta: {
+      deskripsi : "panel report"
+    },
+    children: [{
       path: 'surat_jalan',
       name: 'c_suratjalan',
       component: rSuratJalan
     },{
-      path: 'other',
-      name: 'c_other',
-      component: rOther
+      path: 'invoice',
+      name: 'c_invoice',
+      component: rInvoice
     }]
   }, {
     path: baseURL+"/master",
