@@ -60,7 +60,7 @@
                         <span class="text-red-500 font-medium">Tidak ada data</span>
                     </div>
                     <div v-else-if="!objTableInvoice.tabledata.isLoadData && objTableInvoice.tabledata.rows.length > 0">
-                        <div class="w-full min-h-53">
+                        <div id="canvas-inv" class="w-full min-h-53">
                             <LineChart v-bind:chartData="stateInvoice.chartData" v-bind:chartOptions="stateInvoice.chartOptions" />
                         </div>
                         <div v-cloak>
@@ -123,11 +123,11 @@ export default {
             stateInvoice: {
                 chartData: {
                     datasets: [{
-                        data: [30, 40, 20, 28],
+                        data: [],
                         backgroundColor: '#6ebc8878',
                     }],
                     // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr']
+                    labels: []
                 },
                 chartOptions: {
                     maintainAspectRatio: false,
@@ -136,9 +136,9 @@ export default {
                         display: false,
                     },
                     tooltips: {
-                        enabled: false,
+                        enabled: true,
                     },
-                    events: [],
+                    // events: [],
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -236,21 +236,18 @@ export default {
 
             var aoth = {
                 sid: "",
-                serverdb: "1000PO",
-                sp: "[trp].[TrackSJDist_Read]",
+                serverdb: "1000ORC",
+                sp: "XITAR_READ_LIST_INV_HDR",
                 mvitem: amv.Contents(),
                 action: "1",
-                othval: "SJ",
+                othval: "",
                 key: "",
             }
-
-            panggilsafe(aoth)
+            panggilorc(aoth)
             .then((iMsg) => {
                 if (iMsg.meta.http_status === 200){
                     this.objTableInvoice.tabledata.rows = iMsg.data.nilai.Table;
-                    
-                    // this.state.chartData.datasets[0].data.push(this.doOutstanding);
-                    // this.state.chartData.datasets[0].data.push(this.doClose);
+                    this.mappingDataInvoice(iMsg.data.nilai.Table);
                     this.objTableInvoice.tabledata.isLoadData = false;
                 } else {
                     console.log(iMsg);
@@ -261,6 +258,26 @@ export default {
                 console.log(iMsg);
                 this.objTableInvoice.tabledata.isLoadData = false;
             });
+        },
+
+        mappingDataInvoice(aData) {
+            let allMonth = [];
+            let months = [];
+            let monthLength = {};
+
+            aData.forEach((data, idx) => {
+                const bln = moment(data.AT13).format('MMM');
+                allMonth.push(bln);
+                !months.includes(bln) ? months.push(bln) : true;
+            });
+
+            allMonth.forEach(function(i) { monthLength[i] = (monthLength[i]||0) + 1;});
+
+            this.stateInvoice.chartData.labels = months
+
+            months.forEach(month => {
+                this.stateInvoice.chartData.datasets[0].data.push(monthLength[month]);
+            });
         }
     },
     
@@ -270,7 +287,8 @@ export default {
         this.tipeLogin = getCookie('tipelogin');
     },
     mounted() {
-        this.getData()
+        this.getData();
+        this.getDataInvoice();
     }
 }
 </script>

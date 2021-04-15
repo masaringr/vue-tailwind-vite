@@ -4,6 +4,9 @@
 @tailwind utilities;
 
 @layer utilities {
+  #canvas-inv canvas{
+    height: 18.95rem;
+  }
   [v-cloak] {
     display: none;
   }
