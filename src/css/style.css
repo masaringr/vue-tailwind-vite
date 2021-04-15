@@ -60,6 +60,9 @@
   .h-fit-8{
     height: calc(100vh - 8rem);
   }
+  .h-fit-6{
+    height: calc(100vh - 6rem);
+  }
 
   select {
     -moz-appearance: none;

@@ -19,7 +19,7 @@ export default {
         getData() {
             
         }
-    }
+    },
 
     beforeMount() {
         this.displayName = getCookie('displayname');

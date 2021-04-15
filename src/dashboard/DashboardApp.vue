@@ -21,7 +21,7 @@
                     <!-- main menu -->
                     <div class="px-4 pt-24 pb-20 h-full">
                         <ul v-if="tipeLogin === 'distributor'">
-                            <router-link :to="baseURL+'/dashboard'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/dashboard'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -36,7 +36,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link :to="baseURL+'/reportdist'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/reportdist'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -56,7 +56,7 @@
                             </router-link>
                         </ul>
                         <ul v-else>
-                            <router-link :to="baseURL+'/dashboard'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/dashboard'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -71,7 +71,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link :to="baseURL+'/report'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/report'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -89,7 +89,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link :to="baseURL+'/transaksi'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/transaksi'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -103,7 +103,7 @@
                                     </div>
                                 </li>
                             </router-link>
-                            <router-link :to="baseURL+'/master'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                            <router-link :to="baseURL+'/master'" exact v-slot="{ isActive }">
                                 <li :class="[isActive ? 'my-bg-white' : 'hover:bg-opacity-20 hover:bg-purple-100']" class="rounded-xl cursor-pointer mb-2">
                                     <div class="flex items-center p-2">
                                         <div class="mr-2">
@@ -144,7 +144,7 @@
                                 <span class="font-semibold tracking-wide capitalize text-indigo-900 text-xl">{{judul}}</span>
                             </div>
                             <div class="px-4">
-                                <router-link :to="baseURL+'/profile'" exact v-slot="{ href, route, navigate, isActive, isExactActive }">
+                                <router-link :to="baseURL+'/profile'" exact>
                                     <div class="flex items-center py-2 px-4 cursor-pointer rounded-xl hover:bg-purple-50 border-2 border-purple-50 hover:border-purple-200">
                                         <h4 class="mr-4 font-light text-indigo-800 capitalize tracking-wide">hi, {{displayName}}</h4>
                                         <div>
@@ -208,7 +208,7 @@ export default {
             deleteCookie('userid');
             deleteCookie('tipelogin');
 
-            window.location.href = "/";
+            window.location.href = "./"+this.baseURL;
         }
     },
 

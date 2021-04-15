@@ -9,7 +9,8 @@ import rListPO from "../components/reports/r_listPO.vue";
 import rSuratJalan from "../components/reports/r_suratJalan.vue";
 import rOther from "../components/reports/r_other.vue";
 import rInvoice from "../components/reports/r_invoice.vue";
-import pData from "../components/profile/p_personalData.vue";
+import pPersonalData from "../components/profile/p_personalData.vue";
+import pProfileData from "../components/profile/p_profileData.vue";
 import pChangePass from "../components/profile/p_changePassword.vue";
 
 let baseURL = "";
@@ -59,7 +60,7 @@ const routes = [
     },{
       path: 'invoice',
       name: 'c_invoice',
-      component: rInvoice
+      component: rInvoice,
     }]
   }, {
     path: baseURL+"/master",
@@ -82,15 +83,19 @@ const routes = [
     meta: {
       deskripsi : "profile"
     },
-    redirect: baseURL+"/profile/personal_data",
+    redirect: baseURL+"/profile/profile_data",
     children: [{
       path: 'personal_data',
       name: 'c_pdata',
-      component: pData
+      component: pPersonalData
     },{
       path: 'change_password',
       name: 'c_cpassword',
       component: pChangePass
+    },{
+      path: 'profile_data',
+      name: 'c_profile',
+      component: pProfileData
     }]
   }
 ];

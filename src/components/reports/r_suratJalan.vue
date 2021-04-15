@@ -8,6 +8,8 @@
                     v-model="range"
                     mode="date"
                     color="purple"
+                    :columns="2"
+                    :attributes="dateAttributes"
                     :masks="masks"
                     is-range>
                         <template v-slot="{ inputValue, inputEvents, isDragging }">
@@ -92,49 +94,21 @@ export default {
             showModal: false,
             filePhoto: "",
             range: {
-                start: null,
-                end: null,
+                start: new Date().setDate(new Date().getDate()-30),
+                end: new Date()
             },
             masks: {
                 input: 'DD MMM YYYY',
             },
-            
-            // objDetailPO: {
-            //     tabledata:{
-            //         columns: [{
-            //             id : "ITEM_CODE",
-            //             deskripsi : "Item Code",
-            //             tipedata : "string"
-            //         },{
-            //             id : "item_desc",
-            //             deskripsi : "Item Description",
-            //             tipedata : "string"
-            //         },{
-            //             id : "UOM",
-            //             deskripsi : "UoM",
-            //             tipedata : "string"
-            //         },{
-            //             id : "QUANTITY",
-            //             deskripsi : "Qty PO",
-            //             tipedata : "number"
-            //         },{
-            //             id : "UNIT_PRICE",
-            //             deskripsi : "Unit Price",
-            //             tipedata : "currency"
-            //         },{
-            //             id : "TOTAL_PRICE",
-            //             deskripsi : "Total Price",
-            //             tipedata : "currency"
-            //         },{
-            //             id : "arrival_date",
-            //             deskripsi : "Tgl. ETA",
-            //             tipedata : "date"
-            //         }],
-            //         rows: [],
-            //         header: [],
-            //         isLoadData: false
-            //     },
-            // },
+            dateAttributes: [{
+                key: 'today',
+                highlight: {
+                    color: 'purple',
+                    fillMode: 'outline',
+                },
+                dates: new Date(),
+            }],
+           
             objTable: {
                 tabledata:{
                     columns: [{
@@ -278,48 +252,16 @@ export default {
             this.showModal = true;
             this.filePhoto = 'https://b2b.ultrajaya.co.id/foto/epod/'+filename;
         }
-
-        // getDetail(idPO) {
-        //     console.log('ini idPO ', idPO);
-        //     this.showModal = true;
-        //     this.objDetailPO.tabledata.rows = [];
-        //     this.objDetailPO.tabledata.isLoadData = true;
-        //     let amv = new mv();
-
-        //     amv.SetData3(2, 1, idPO);
-
-        //     var aoth = {
-        //         sid: "2d7d711e-cc41-45ab-a25a-3f55b382dc29",
-        //         serverdb: "1000PO",
-        //         sp: "listpo",
-        //         mvitem: amv.Contents(),
-        //         action: "1",
-        //         othval: "detpo",
-        //         key: "",
-        //     }
-
-        //     panggilsafe(aoth)
-        //     .then((iMsg) => {
-        //         if (iMsg.meta.http_status === 200){
-        //             this.objDetailPO.tabledata.header = iMsg.data.nilai.Table;
-        //             this.objDetailPO.tabledata.rows = iMsg.data.nilai.Table1;
-        //             this.objDetailPO.tabledata.isLoadData = false;
-        //         } else {
-        //             alert(iMsg.errors[0].message);
-        //             this.objDetailPO.tabledata.isLoadData = false;
-        //         }
-        //     })
-        //     .catch((iMsg) => {
-        //         console.log(iMsg)
-        //         this.objDetailPO.tabledata.isLoadData = false;
-        //     });
-        // }
     },
 
     beforeMount() {
         this.displayName = getCookie('displayname');
         this.userID = getCookie('userid');
         this.tipeLogin = getCookie('tipelogin');
+    },
+
+    mounted() {
+        this.getData();
     }
 }
 </script>

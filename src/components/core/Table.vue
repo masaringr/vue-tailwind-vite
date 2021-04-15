@@ -49,6 +49,15 @@
                                     View
                                 </span>
                             </div>
+                            <div v-else-if="col.tipedata === 'number'" class="text-right">
+                                <span class="tracking-wider">{{numeralFormat(row[col.id], '0,0[.]00')}}</span>
+                            </div>
+                            <div v-else-if="col.tipedata === 'integer'" class="text-right">
+                                <span class="tracking-wider">{{(row[col.id])}}</span>
+                            </div>
+                            <div v-else-if="col.tipedata === 'rupiah'" class="text-right">
+                                <span class="tracking-wider">Rp.{{numeralFormat(row[col.id], '0,0[.]00')}}</span>
+                            </div>
                             <div v-else>
                                 <span>{{row[col.id]}}</span>
                             </div>
@@ -211,7 +220,6 @@ export default {
         },
 
         showLink(id) {
-            console.log('ini id ', id);
             this.$emit('showlink', id);
         },
 
