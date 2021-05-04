@@ -31,10 +31,10 @@
                                     <img src="../../assets/pdf24.png" alt="">
                                 </a>
                             </div>
-                            <div v-if="col.tipedata === 'pdf_blob'">
-                                <div v-if="row[col.id]" class="cursor-pointer" @click="downloadBlobFile(row[col.id], row['ID_DO']+'.pdf')">
+                            <div v-if="col.tipedata === 'pdf_from_b2b'">
+                                <a v-if="row[col.id]" :href="'https://b2b.ultrajaya.co.id/foto/pdfdo/'+row[col.id]" target="_blank">
                                     <img src="../../assets/pdf24.png" alt="">
-                                </div>
+                                </a>
                             </div>
                             <div v-else-if="col.tipedata === 'link_detail'">
                                 <span @click="showLink(row[col.id])" class="cursor-pointer font-semibold text-blue-500">{{row[col.id]}}</span>
@@ -225,13 +225,6 @@ export default {
 
         showPhoto(filename) {
             this.$emit('showphoto', filename);
-        },
-        downloadBlobFile(theBlob, fileName) {
-            let obj = {
-                blob: theBlob,
-                filename: fileName
-            }
-            this.$emit('blobToFile', obj);
         },
     }
 }

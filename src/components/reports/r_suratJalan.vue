@@ -94,7 +94,7 @@ export default {
             showModal: false,
             filePhoto: "",
             range: {
-                start: new Date().setDate(new Date().getDate()-30),
+                start: new Date().setDate(new Date().getDate()-14),
                 end: new Date()
             },
             masks: {
@@ -114,7 +114,7 @@ export default {
                     columns: [{
                         id : "FilePDF",
                         deskripsi : "File",
-                        tipedata : "pdf_blob"
+                        tipedata : "pdf_from_b2b"
                     },{
                         id : "TglDO",
                         deskripsi : "Tgl. DO",
@@ -228,7 +228,7 @@ export default {
                 sp: "[trp].[TrackSJDist_Read]",
                 mvitem: amv.Contents(),
                 action: "1",
-                othval: "SJ",
+                othval: "SJ2",
                 key: "",
             }
 
