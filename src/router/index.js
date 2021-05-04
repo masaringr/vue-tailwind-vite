@@ -15,8 +15,12 @@ import pChangePass from "../components/profile/p_changePassword.vue";
 
 let baseURL = "";
 
-const routes = [
-  {
+const routes = [{
+    path: baseURL+"/",
+    name: "index",
+    component: "",
+    redirect: baseURL+"/index.html"
+  }, {
     path: baseURL+"/dashboard.html",
     name: "iDashboard",
     component: cDashboard,

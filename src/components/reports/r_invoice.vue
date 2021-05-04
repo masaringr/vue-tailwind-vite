@@ -87,7 +87,7 @@ export default {
             filePhoto: "",
             aMonth: null,
             range: {
-                start: new Date().setDate(new Date().getDate()-30),
+                start: new Date().setDate(new Date().getDate()-14),
                 end: new Date()
             },
             masks: {

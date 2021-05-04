@@ -82,6 +82,14 @@
 }
 
 @layer components {
+  table.table-noborder th, table.table-noborder td{
+    @apply border-none
+  }
+
+  table.table-noborder tbody>tr{
+    @apply bg-white hover:bg-white
+  }
+
   .min-h-53{
     min-height: 13rem
   }

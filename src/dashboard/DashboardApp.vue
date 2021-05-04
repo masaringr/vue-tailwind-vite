@@ -1,8 +1,8 @@
 <template>
     <div class="w-full h-screen bg-white p-4">
-        <div class="grid grid-cols-6 gap-4 h-full">
+        <div class="grid grid-cols-12 gap-4 h-full">
             <!-- grid kiri menu -->
-            <div class="">
+            <div class="col-span-12 z-10 md:col-span-3 lg:col-span-2">
                 <div class="h-full my-bg-indigo rounded-2xl shadow-lg relative">
                     <!-- logo header -->
                     <div class="absolute top-0 left-0 w-full p-4 rounded-t-2xl my-bg-indigo">
@@ -135,7 +135,7 @@
             </div>
 
             <!-- grid kanan konten -->
-            <div class="col-span-5">
+            <div class="col-span-12 md:col-span-9 lg:col-span-10">
                 <div class="h-full relative">
                     <!-- header konten -->
                     <div class="block w-full absolute top-0 left-0">
@@ -208,12 +208,14 @@ export default {
             deleteCookie('userid');
             deleteCookie('tipelogin');
 
-            window.location.href = "./"+this.baseURL;
+            window.location.href = "/uis/";
         }
     },
 
     mounted() {
-        
+        if (!this.userID) {
+            window.location.href = "./";
+        }
     },
 
     beforeMount() {
