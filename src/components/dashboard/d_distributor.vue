@@ -1,10 +1,10 @@
 <template>
   <div class="grid grid-cols-12 gap-6">
-    <div class="col-span-3">
+    <div v-if="userPermission === 'all' || userPermission === 'operasional'" class="col-span-3">
       <div class="bg-white shadow-lg p-4 rounded-lg">
         <div class="mb-4">
           <span class="font-semibold text-base text-indigo-800"
-            >Summary DO {{ yearNow }}</span
+            >Summary Surat Jalan {{ yearNow }}</span
           >
         </div>
         <div
@@ -44,7 +44,7 @@
         <div
           v-else-if="
             !objTable.tabledata.isLoadData &&
-            objTable.tabledata.rows.length === 0
+            totalDO === 0
           "
           class="flex justify-center items-center"
         >
@@ -52,7 +52,7 @@
         </div>
         <div
           v-else-if="
-            !objTable.tabledata.isLoadData && objTable.tabledata.rows.length > 0
+            !objTable.tabledata.isLoadData && totalDO > 0
           "
         >
           <div class="w-full min-h-53">
@@ -66,16 +66,16 @@
               <div class="w-4 h-4 bg-green-600 rounded-sm mr-1"></div>
               <div class="font-medium text-gray-600">
                 <span
-                  >DO Close
+                  >SJ Close
                   <span class="text-gray-800 font-semibold"
-                    >({{ doClose }})</span
+                    >({{ DOClose }})</span
                   ></span
                 >
               </div>
               <div class="flex-auto text-right font-semibold text-gray-600">
                 <span
                   >{{
-                    ((doClose / objTable.tabledata.rows.length) * 100).toFixed(
+                    ((DOClose / totalDO) * 100).toFixed(
                       0
                     )
                   }}%</span
@@ -86,16 +86,16 @@
               <div class="w-4 h-4 bg-yellow-500 rounded-sm mr-1"></div>
               <div class="font-medium text-gray-600">
                 <span
-                  >DO Outstand...
+                  >SJ Outstand...
                   <span class="text-gray-800 font-semibold"
-                    >({{ doOutstanding }})</span
+                    >({{ DOOutStanding }})</span
                   ></span
                 >
               </div>
               <div class="flex-auto text-right font-semibold text-gray-600">
                 {{
                   (
-                    (doOutstanding / objTable.tabledata.rows.length) *
+                    (DOOutStanding / totalDO) *
                     100
                   ).toFixed(0)
                 }}%
@@ -105,9 +105,9 @@
               <div class="w-4 h-4 bg-white rounded-sm mr-1"></div>
               <div class="font-medium text-gray-600">
                 <span
-                  >Total DO
+                  >Total SJ
                   <span class="text-gray-800 font-semibold"
-                    >({{ objTable.tabledata.rows.length }})</span
+                    >({{ totalDO }})</span
                   ></span
                 >
               </div>
@@ -159,7 +159,7 @@
         </div>
       </div>
     </div>
-    <div class="col-span-9">
+    <div v-if="userPermission === 'all'" class="col-span-9">
       <div class="bg-white shadow-lg p-4 rounded-lg">
         <div class="mb-4">
           <span class="font-semibold text-base text-indigo-800"
@@ -221,7 +221,20 @@
               v-bind:chartOptions="stateInvoice.chartOptions"
             />
           </div>
-          <div v-cloak>
+          <div v-cloak class="mt-6">
+            <div class="w-1/2">
+              <span class="font-semibold text-base text-indigo-800">Summary Piutang {{ yearNow }}</span>
+              <div v-for="(piutang, idx) in summaryPiutang" :key="idx">
+                <div class="mt-2 flex text-sm items-center">
+                  <div class="font-medium text-gray-600">
+                    <span>{{getMonthName(piutang.AT13)}}</span>
+                  </div>
+                  <div class="flex-auto text-right font-semibold text-gray-600">
+                    <span>Rp. {{numeralFormat(piutang.totalPiutang, '0,0[.]00')}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
               class="border-t border-gray-200 mt-4 pt-3 flex justify-center items-center"
             >
@@ -281,12 +294,17 @@ export default {
     },
     data: function () {
         return{
+            userPermission: "",
             text1: "",
             judul: "",
-            baseURL: "",
+            baseURL: "/uis",
             displayName: "",
             userID: "",
             tipeLogin: "",
+            DOClose: 0,
+            DOOutStanding: 0,
+            totalDO: 0,
+            summaryPiutang : [],
             state: {
                 chartData: {
                     datasets: [{
@@ -312,6 +330,7 @@ export default {
             stateInvoice: {
                 chartData: {
                     datasets: [{
+                        label: 'Total Invoice ',
                         data: [],
                         backgroundColor: '#6ebc8878',
                     }],
@@ -358,32 +377,36 @@ export default {
         yearNow () {
             return moment().year();
         },
-        doOutstanding() {
-            const items = this.objTable.tabledata.rows.filter(item => {
-                item.Desc_ListTrack = item.Desc_ListTrack ? item.Desc_ListTrack : "";
-                let status = item.Desc_ListTrack.toString().toLowerCase()
-                return !status.includes("setelah unloading");
-            });
-            return items.length;
-        },
+        
+        // doOutstanding() {
+        //     const items = this.objTable.tabledata.rows.filter(item => {
+        //         item.Desc_ListTrack = item.Desc_ListTrack ? item.Desc_ListTrack : "";
+        //         let status = item.Desc_ListTrack.toString().toLowerCase()
+        //         return !status.includes("setelah unloading");
+        //     });
+        //     return items.length;
+        // },
 
-        doClose() {
-            const items = this.objTable.tabledata.rows.filter(item => {
-                item.Desc_ListTrack = item.Desc_ListTrack ? item.Desc_ListTrack : "";
-                let status = item.Desc_ListTrack.toString().toLowerCase()
-                return status.includes("setelah unloading");
-            });
-            return items.length;
-        }
+        // doClose() {
+        //     const items = this.objTable.tabledata.rows.filter(item => {
+        //         item.Desc_ListTrack = item.Desc_ListTrack ? item.Desc_ListTrack : "";
+        //         let status = item.Desc_ListTrack.toString().toLowerCase()
+        //         return status.includes("setelah unloading");
+        //     });
+        //     return items.length;
+        // }
     },
 
     methods: {
+        getMonthName(aDate) {
+            return moment(aDate).format('MMMM');
+        },
+
         getData() {
             this.objTable.tabledata.isLoadData = true;
             let amv = new mv();
 
-            amv.SetData3(1, 1, "20210414");
-            // amv.SetData3(1, 1, moment().startOf('year').format('YYYYMMDD'));
+            amv.SetData3(1, 1, moment().startOf('year').format('YYYYMMDD'));
             amv.SetData3(2, 1, moment().format('YYYYMMDD'));
             amv.SetData3(3, 1, this.userID);
 
@@ -393,17 +416,19 @@ export default {
                 sp: "[trp].[TrackSJDist_Read]",
                 mvitem: amv.Contents(),
                 action: "1",
-                othval: "SJ2",
+                othval: "REKAPSJ",
                 key: "",
             }
 
             panggilsafe(aoth)
             .then((iMsg) => {
                 if (iMsg.meta.http_status === 200){
-                    this.objTable.tabledata.rows = iMsg.data.nilai.Table;
-                    
-                    this.state.chartData.datasets[0].data.push(this.doOutstanding);
-                    this.state.chartData.datasets[0].data.push(this.doClose);
+                    this.DOClose = iMsg.data.nilai.Table[0].DoClose;
+                    this.DOOutStanding = iMsg.data.nilai.Table[0].DoStd;
+                    this.totalDO = iMsg.data.nilai.Table[0].Total;
+
+                    this.state.chartData.datasets[0].data.push(this.DOOutStanding);
+                    this.state.chartData.datasets[0].data.push(this.DOClose);
                     this.objTable.tabledata.isLoadData = false;
                 } else {
                     console.log(iMsg);
@@ -427,7 +452,7 @@ export default {
             var aoth = {
                 sid: "",
                 serverdb: "1000ORC",
-                sp: "XITAR_READ_LIST_INV_HDR",
+                sp: "XITAR_READ_LIST_INV_HEAD",
                 mvitem: amv.Contents(),
                 action: "1",
                 othval: "",
@@ -451,12 +476,31 @@ export default {
         },
 
         mappingDataInvoice(aData) {
+            // untuk mendapatkan summary piutang
+            const result = [...aData.reduce((r, o) => {
+              const key = moment(o.AT13).format('MMMM');
+              
+              const item = r.get(key) || Object.assign({}, o, {
+                totalPiutang: 0,
+              });
+              
+              item.totalPiutang += o.AT16;
+
+              return r.set(key, item);
+            }, new Map).values()];
+
+            this.summaryPiutang = result;
+            console.log(this.summaryPiutang);
+            // untuk mendapatkan summary piutang
+
+
+            // untuk mendapatkan summary surat jalan
             let allMonth = [];
             let months = [];
             let monthLength = {};
 
             aData.forEach((data, idx) => {
-                const bln = moment(data.AT13).format('MMM');
+                const bln = moment(data.AT13).format('MMMM');
                 allMonth.push(bln);
                 !months.includes(bln) ? months.push(bln) : true;
             });
@@ -468,6 +512,7 @@ export default {
             months.forEach(month => {
                 this.stateInvoice.chartData.datasets[0].data.push(monthLength[month]);
             });
+            // untuk mendapatkan summary surat jalan
         }
     },
     
@@ -475,6 +520,7 @@ export default {
         this.displayName = getCookie('displayname');
         this.userID = getCookie('userid');
         this.tipeLogin = getCookie('tipelogin');
+        this.userPermission = getCookie('user_permission');
     },
     mounted() {
         this.getData();

@@ -79,9 +79,20 @@
   .min-h-56{
     min-height: 13rem;
   }
+  .min-h-28{
+    min-height: 28rem;
+  }
 }
 
 @layer components {
+  .tooltip {
+    @apply invisible absolute;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50
+  }
+  
   table.table-noborder th, table.table-noborder td{
     @apply border-none
   }

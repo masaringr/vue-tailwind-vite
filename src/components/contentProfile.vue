@@ -27,7 +27,7 @@ export default {
         return{
             text1: "",
             judul: "",
-            baseURL: ""
+            baseURL: "/uis"
         }
     },
 

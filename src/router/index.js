@@ -9,11 +9,12 @@ import rListPO from "../components/reports/r_listPO.vue";
 import rSuratJalan from "../components/reports/r_suratJalan.vue";
 import rOther from "../components/reports/r_other.vue";
 import rInvoice from "../components/reports/r_invoice.vue";
+import rHistoryPembayaran from "../components/reports/r_historyPembayaran.vue";
 import pPersonalData from "../components/profile/p_personalData.vue";
 import pProfileData from "../components/profile/p_profileData.vue";
 import pChangePass from "../components/profile/p_changePassword.vue";
 
-let baseURL = "";
+let baseURL = "/uis";
 
 const routes = [{
     path: baseURL+"/",
@@ -38,7 +39,7 @@ const routes = [{
     component: cReport,
     redirect: baseURL+"/report/listpo",
     meta: {
-      deskripsi : "panel report"
+      deskripsi : "activity report"
     },
     children: [{
       path: 'listpo',
@@ -55,7 +56,7 @@ const routes = [{
     component: cReport,
     redirect: baseURL+"/reportdist/surat_jalan",
     meta: {
-      deskripsi : "panel report"
+      deskripsi : "activity report"
     },
     children: [{
       path: 'surat_jalan',
@@ -65,6 +66,10 @@ const routes = [{
       path: 'invoice',
       name: 'c_invoice',
       component: rInvoice,
+    },{
+      path: 'history_pembayaran',
+      name: 'c_history_pembayaran',
+      component: rHistoryPembayaran,
     }]
   }, {
     path: baseURL+"/master",
@@ -85,7 +90,7 @@ const routes = [{
     name: "profile",
     component: cProfile,
     meta: {
-      deskripsi : "profile"
+      deskripsi : "panel profile"
     },
     redirect: baseURL+"/profile/profile_data",
     children: [{

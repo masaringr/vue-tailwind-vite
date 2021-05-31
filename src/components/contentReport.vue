@@ -1,6 +1,6 @@
 <template>
     <div v-if="tipeLogin === 'distributor'" class="flex gap-4 pb-4 border-b-2 border-gray-200 overflow-x-auto">
-        <router-link :to="baseURL+'/reportdist/surat_jalan'" exact v-slot="{ isExactActive }">
+        <router-link v-if="userPermission === 'all' || userPermission === 'operasional'" :to="baseURL+'/reportdist/surat_jalan'" exact v-slot="{ isExactActive }">
             <div :class="isExactActive ? 'border-indigo-700' : 'border-gray-400 hover:border-indigo-700'" class="flex items-center group cursor-pointer px-4 py-1 rounded-full bg-white border-2">
                 <div class="mr-2">
                     <svg :class="isExactActive ? 'text-indigo-700' : 'text-gray-400'" class="stroke-current icon line group-hover:text-indigo-700" width="24" height="24" id="note-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>
@@ -8,12 +8,20 @@
                 <span :class="isExactActive ? 'text-indigo-700' : 'text-gray-400 group-hover:text-indigo-700'" class="capitalize font-medium whitespace-nowrap">Surat Jalan</span>
             </div>
         </router-link>
-        <router-link :to="baseURL+'/reportdist/invoice'" exact v-slot="{ isExactActive }">
+        <router-link v-if="userPermission === 'all'" :to="baseURL+'/reportdist/invoice'" exact v-slot="{ isExactActive }">
             <div :class="isExactActive ? 'border-indigo-700' : 'border-gray-400 hover:border-indigo-700'" class="flex items-center group cursor-pointer px-4 py-1 rounded-full bg-white border-2">
                 <div class="mr-2">
                     <svg :class="isExactActive ? 'text-indigo-700' : 'text-gray-400'" class="stroke-current icon line group-hover:text-indigo-700" width="24" height="24" id="note-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>
                 </div>
                 <span :class="isExactActive ? 'text-indigo-700' : 'text-gray-400 group-hover:text-indigo-700'" class="capitalize font-medium whitespace-nowrap">Invoice</span>
+            </div>
+        </router-link>
+        <router-link v-if="userPermission === 'all'" :to="baseURL+'/reportdist/history_pembayaran'" exact v-slot="{ isExactActive }">
+            <div :class="isExactActive ? 'border-indigo-700' : 'border-gray-400 hover:border-indigo-700'" class="flex items-center group cursor-pointer px-4 py-1 rounded-full bg-white border-2">
+                <div class="mr-2">
+                    <svg :class="isExactActive ? 'text-indigo-700' : 'text-gray-400'" class="stroke-current icon line group-hover:text-indigo-700" width="24" height="24" id="note-alt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>
+                </div>
+                <span :class="isExactActive ? 'text-indigo-700' : 'text-gray-400 group-hover:text-indigo-700'" class="capitalize font-medium whitespace-nowrap">History Pembayaran</span>
             </div>
         </router-link>
     </div>
@@ -45,10 +53,11 @@ export default {
         return{
             text1: "",
             judul: "",
-            baseURL: "",
+            baseURL: "/uis",
             displayName: "",
             userID: "",
-            tipeLogin: ""
+            tipeLogin: "",
+            userPermission: ""
         }
     },
 
@@ -74,6 +83,7 @@ export default {
         this.displayName = getCookie('displayname');
         this.userID = getCookie('userid');
         this.tipeLogin = getCookie('tipelogin');
+        this.userPermission = getCookie('user_permission');
     }
 }
 </script>

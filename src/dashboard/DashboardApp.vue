@@ -180,15 +180,17 @@
     </div>
 </template>
 <script>
+
 export default {
     data: function () {
         return{
             text1: "",
             judul: "",
-            baseURL: "",
+            baseURL: "/uis",
             displayName: "",
             userID: "",
-            tipeLogin: ""
+            tipeLogin: "",
+            userPermission: ""
         }
     },
 
@@ -207,21 +209,23 @@ export default {
             deleteCookie('displayname');
             deleteCookie('userid');
             deleteCookie('tipelogin');
+            deleteCookie('user_permission');
 
-            window.location.href = "/uis/";
-        }
-    },
-
-    mounted() {
-        if (!this.userID) {
-            window.location.href = "./";
+            window.location.href = this.baseURL + "/";
         }
     },
 
     beforeMount() {
+        if (!this.userID) {
+            window.location.href = this.baseURL + "/";
+        }
+    },
+
+    created() {
         this.displayName = getCookie('displayname');
         this.userID = getCookie('userid');
         this.tipeLogin = getCookie('tipelogin');
+        this.userPermission = getCookie('user_permission');
     }
 }
 </script>

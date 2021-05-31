@@ -102,7 +102,7 @@ export default {
     data: function () {
         return{
             text1: "",
-            baseURL: ""
+            baseURL: "/uis"
         }
     },
 

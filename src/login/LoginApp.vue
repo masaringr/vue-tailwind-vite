@@ -109,31 +109,42 @@ export default {
         return{
             iconLoading: false,
             text1: "",
-            baseURL: "",
+            baseURL: "/uis",
             userLogin: [{
                 id: "1111",
                 username: "1111",
                 password: "1111",
                 displayName: "Super Admin",
-                tipe: "admin"
+                tipe: "admin",
+                permission: "all"
             }, {
                 id: "2222",
                 username: "2222",
                 password: "2222",
                 displayName: "vendor 1",
-                tipe: "vendor"
+                tipe: "vendor",
+                permission: "all"
             }, {
                 id: "3333",
                 username: "3333",
                 password: "3333",
                 displayName: "distributor 1",
-                tipe: "distributor"
+                tipe: "distributor",
+                permission: "all"
             }, {
                 id: "1231",
                 username: "1231",
                 password: "ujmi",
                 displayName: "VIARDI",
-                tipe: "distributor"
+                tipe: "distributor",
+                permission: "all"
+            }, {
+                id: "1231",
+                username: "1231-opr",
+                password: "ujmi",
+                displayName: "VIARDI",
+                tipe: "distributor",
+                permission: "operasional"
             }]
         }
     },
@@ -167,6 +178,7 @@ export default {
                     setCookie("displayname", userValid[0].displayName);
                     setCookie("userid", userValid[0].id);
                     setCookie("tipelogin", userValid[0].tipe);
+                    setCookie("user_permission", userValid[0].permission);
                     this.iconLoading = false;
 
                     window.location.href = this.baseURL+"/dashboard.html"

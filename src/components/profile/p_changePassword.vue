@@ -149,7 +149,7 @@ export default {
       if (this.formData.password !== this.formData.confirmPassword) {
         this.iconLoading = false;
         Toastify({
-            text: "Confirm Password tidak sama",
+            text: "Konfirmasi password tidak sama",
             duration: 3000,
             newWindow: true,
             close: false,

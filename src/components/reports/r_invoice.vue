@@ -45,12 +45,12 @@
             <div class="col-span-2 flex items-center">
                 <button @click="getData" class="text-base capitalize mt-4 py-1.5 px-4 bg-indigo-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-indigo-500 focus:outline-none">get data</button>
             </div>
-            <!-- <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center pt-4">
+            <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center pt-4">
                 <div class="asd bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm">
-                    <strong class="cs text-gray-500 font-medium">Total Amount</strong>
-                    <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white tracking-wider">Rp. {{numeralFormat(totalAmount, '0,0[.]00')}}</span>
+                    <strong class="cs text-gray-500 font-medium">Total Piutang</strong>
+                    <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white tracking-wider">Rp. {{numeralFormat(totalPiutang, '0,0[.]00')}}</span>
                 </div>
-            </div> -->
+            </div>
         </div>
         <MyTable :obj="objTable" @showlink="showLink"></MyTable>
     </div>
@@ -144,6 +144,22 @@ export default {
                         id : "AT14",
                         deskripsi : "Amount",
                         tipedata : "number"
+                    },{
+                        id : "AT15",
+                        deskripsi : "Sudah Dibayar",
+                        tipedata : "number"
+                    },{
+                        id : "AT16",
+                        deskripsi : "Sisa Piutang",
+                        tipedata : "number"
+                    },{
+                        id : "AT17",
+                        deskripsi : "PDF",
+                        tipedata : "pdf_from_b2b"
+                    },{
+                        id : "AT18",
+                        deskripsi : "Faktur Pajak",
+                        tipedata : "pdf_from_b2b"
                     }],
                     rows: [],
                     isLoadData: false
@@ -161,6 +177,14 @@ export default {
         //     });
         //     return total;
         // }
+        totalPiutang() {
+            let total = 0
+            this.objTable.tabledata.rows.forEach(element => {
+                let val = element.AT16 ? element.AT16 : 0;
+                total += val;
+            });
+            return total;
+        }
     },
 
     methods: {
@@ -180,7 +204,7 @@ export default {
             var aoth = {
                 sid: "",
                 serverdb: "1000ORC",
-                sp: "XITAR_READ_LIST_INV_HDR",
+                sp: "XITAR_READ_LIST_INV_HEAD",
                 mvitem: amv.Contents(),
                 action: "1",
                 othval: "",

@@ -45,18 +45,21 @@
             <div class="col-span-2 flex items-center">
                 <button @click="getData" class="text-base capitalize mt-4 py-1.5 px-4 bg-indigo-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-indigo-500 focus:outline-none">get data</button>
             </div>
-            <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center pt-4">
-                <div class="asd bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm">
-                    <strong class="cs text-gray-500 font-medium">Total DO</strong>
-                    <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{objTable.tabledata.rows.length}}</span>
+            <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center">
+                <div class="bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm w-32 has-tooltip">
+                    <strong class="tooltip rounded shadow-lg py-1 px-3 bg-indigo-600 text-white -mt-11 font-light">Total Surat Jalan</strong>
+                    <strong class="block text-gray-500 font-medium truncate mb-1">Total Surat Jalan</strong>
+                    <span class="mt-1 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{objTable.tabledata.rows.length}}</span>
                 </div>
-                <div class="asd bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm">
-                    <strong class="cs text-gray-500 font-medium">DO Outstanding</strong>
-                    <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{doOutstanding}}</span>
+                <div class="bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm w-32 has-tooltip">
+                    <strong class="tooltip rounded shadow-lg py-1 px-3 bg-indigo-600 text-white -mt-11 font-light">Outstanding Surat Jalan</strong>
+                    <strong class="block text-gray-500 font-medium truncate mb-1">Outstanding Surat Jalan</strong>
+                    <span class="mt-1 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{doOutstanding}}</span>
                 </div>
-                <div class="asd bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm">
-                    <strong class="cs text-gray-500 font-medium">DO Close</strong>
-                    <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{doClose}}</span>
+                <div class="bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm w-32 has-tooltip">
+                    <strong class="tooltip rounded shadow-lg py-1 px-3 bg-indigo-600 text-white -mt-11 font-light">Closed Surat Jalan</strong>
+                    <strong class="block text-gray-500 font-medium truncate mb-1">Closed Surat Jalan</strong>
+                    <span class="mt-1 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white">{{doClose}}</span>
                 </div>
             </div>
         </div>
