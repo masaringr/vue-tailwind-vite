@@ -137,6 +137,8 @@
 <script>
 import MyTable from "../core/Table.vue";
 import moment from 'moment';
+import { mv } from "../../assets/js/mv";
+import { panggilsafe } from "../../assets/js/umum";
 
 export default {
     components: {
@@ -223,7 +225,8 @@ export default {
                         tipedata : "string"
                     }],
                     rows: [],
-                    isLoadData: false
+                    isLoadData: false,
+                    isExport: false
                 },
             },
         }

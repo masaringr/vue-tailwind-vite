@@ -1,110 +1,100 @@
 import { createWebHistory, createRouter } from "vue-router";
-// import Home from "../components/HomePage.vue";
-import cDashboard from "../components/contentDashboard.vue";
-import cReport from "../components/contentReport.vue";
-import cMaster from "../components/contentMaster.vue";
-import cTransaksi from "../components/contentTransaksi.vue";
-import cProfile from "../components/contentProfile.vue";
-import rListPO from "../components/reports/r_listPO.vue";
-import rSuratJalan from "../components/reports/r_suratJalan.vue";
-import rOther from "../components/reports/r_other.vue";
-import rInvoice from "../components/reports/r_invoice.vue";
-import rHistoryPembayaran from "../components/reports/r_historyPembayaran.vue";
-import pPersonalData from "../components/profile/p_personalData.vue";
-import pProfileData from "../components/profile/p_profileData.vue";
-import pChangePass from "../components/profile/p_changePassword.vue";
+import { getCookie } from "../assets/js/umum.js";
 
-let baseURL = "/uis";
+
+let config = {
+  baseURL: "/uis"
+}
 
 const routes = [{
-    path: baseURL+"/",
+    path: config.baseURL+"/",
     name: "index",
     component: "",
-    redirect: baseURL+"/index.html"
+    redirect: config.baseURL+"/index.html"
   }, {
-    path: baseURL+"/dashboard.html",
+    path: config.baseURL+"/dashboard.html",
     name: "iDashboard",
-    component: cDashboard,
-    redirect: baseURL+"/dashboard"
+    component: () => import('../components/contentDashboard.vue'),
+    redirect: config.baseURL+"/dashboard"
   }, {
-    path: baseURL+"/dashboard",
+    path: config.baseURL+"/dashboard",
     name: "dashboard",
-    component: cDashboard,
+    component: () => import('../components/contentDashboard.vue'),
     meta: {
       deskripsi : "panel dashboard"
     }
   }, {
-    path: baseURL+"/report",
+    path: config.baseURL+"/report",
     name: "report",
-    component: cReport,
-    redirect: baseURL+"/report/listpo",
+    component: () => import('../components/contentReport.vue'),
+    redirect: config.baseURL+"/report/listpo",
     meta: {
       deskripsi : "activity report"
     },
     children: [{
       path: 'listpo',
       name: 'c_listpo',
-      component: rListPO
+      component: () => import('../components/reports/r_listPO.vue')
     },{
       path: 'other',
       name: 'c_other',
-      component: rOther
+      component: () => import('../components/reports/r_other.vue')
     }]
   }, {
-    path: baseURL+"/reportdist",
+    path: config.baseURL+"/reportdist",
     name: "reportdist",
-    component: cReport,
-    redirect: baseURL+"/reportdist/surat_jalan",
+    component: () => import('../components/contentReport.vue'),
+    redirect: getCookie('user_permission') == 'all' ? config.baseURL+"/reportdist/invoice" : config.baseURL+"/reportdist/surat_jalan",
     meta: {
       deskripsi : "activity report"
     },
     children: [{
       path: 'surat_jalan',
       name: 'c_suratjalan',
-      component: rSuratJalan
+      component: () => import('../components/reports/r_suratJalan.vue')
     },{
       path: 'invoice',
       name: 'c_invoice',
-      component: rInvoice,
+      component: () => import('../components/reports/r_invoice.vue'),
     },{
       path: 'history_pembayaran',
       name: 'c_history_pembayaran',
-      component: rHistoryPembayaran,
+      component: () => import('../components/reports/r_historyPembayaran.vue'),
     }]
   }, {
-    path: baseURL+"/master",
+    path: config.baseURL+"/master",
     name: "master",
-    component: cMaster,
+    component: () => import('../components/contentMaster.vue'),
     meta: {
       deskripsi : "panel master"
     }
   }, {
-    path: baseURL+"/transaksi",
+    path: config.baseURL+"/transaksi",
     name: "transaksi",
-    component: cTransaksi,
+    component: () => import('../components/contentTransaksi.vue'),
     meta: {
       deskripsi : "panel transaksi"
     }
   }, {
-    path: baseURL+"/profile",
+    path: config.baseURL+"/profile",
     name: "profile",
-    component: cProfile,
+    component: () => import('../components/contentProfile.vue'),
     meta: {
       deskripsi : "panel profile"
     },
-    redirect: baseURL+"/profile/profile_data",
+    redirect: config.baseURL+"/profile/profile_data",
     children: [{
       path: 'personal_data',
       name: 'c_pdata',
-      component: pPersonalData
+      component: () => import('../components/profile/p_personalData.vue')
     },{
       path: 'change_password',
       name: 'c_cpassword',
-      component: pChangePass
+      component: () => import('../components/profile/p_changePassword.vue')
     },{
       path: 'profile_data',
       name: 'c_profile',
-      component: pProfileData
+      component: () => import('../components/profile/p_profileData.vue')
     }]
   }
 ];

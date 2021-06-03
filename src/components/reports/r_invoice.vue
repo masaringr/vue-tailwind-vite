@@ -45,14 +45,14 @@
             <div class="col-span-2 flex items-center">
                 <button @click="getData" class="text-base capitalize mt-4 py-1.5 px-4 bg-indigo-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-indigo-500 focus:outline-none">get data</button>
             </div>
-            <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center pt-4">
+            <!-- <div v-if="objTable.tabledata.rows.length" class="col-span-6 flex items-center pt-4">
                 <div class="asd bg-gray-100 px-3 py-2 rounded-md mr-4 text-sm">
                     <strong class="cs text-gray-500 font-medium">Total Piutang</strong>
                     <span class="ml-2 p-1 px-2 font-semibold rounded-full text-xs bg-pink-600 text-white tracking-wider">Rp. {{numeralFormat(totalPiutang, '0,0[.]00')}}</span>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <MyTable :obj="objTable" @showlink="showLink"></MyTable>
+        <MyTable :obj="objTable" @showlink="showLink" @exportexcel="exportExcel"></MyTable>
     </div>
     <vue-final-modal v-model="showModal">
         <div class="flex justify-center items-center h-screen">
@@ -73,6 +73,9 @@
 <script>
 import MyTable from "../core/Table.vue";
 import moment from 'moment';
+import { JSONToEXCELConvertor } from '../../assets/js/exportExcel';
+import { mv } from "../../assets/js/mv";
+import { getCookie, panggilorc } from "../../assets/js/umum";
 
 export default {
     components: {
@@ -127,7 +130,8 @@ export default {
                     }],
                     rows: [],
                     header: [],
-                    isLoadData: false
+                    isLoadData: false,
+                    isExport: false
                 },
             },
             objTable: {
@@ -136,6 +140,11 @@ export default {
                         id : "AT11",
                         deskripsi : "No Invoice",
                         tipedata : "link_detail"
+                    },
+                    {
+                        id : "AT12",
+                        deskripsi : "Tipe",
+                        tipedata : "string"
                     },{
                         id : "AT13",
                         deskripsi : "Tgl Invoice",
@@ -153,16 +162,22 @@ export default {
                         deskripsi : "Sisa Piutang",
                         tipedata : "number"
                     },{
+                        id : "AT19",
+                        deskripsi : "Surat Jalan",
+                        tipedata : "pdf_from_sj"
+                    }
+                    ,{
                         id : "AT17",
-                        deskripsi : "PDF",
-                        tipedata : "pdf_from_b2b"
+                        deskripsi : "Invoice",
+                        tipedata : "pdf_from_inv"
                     },{
                         id : "AT18",
                         deskripsi : "Faktur Pajak",
-                        tipedata : "pdf_from_b2b"
+                        tipedata : "pdf_from_fp"
                     }],
                     rows: [],
-                    isLoadData: false
+                    isLoadData: false,
+                    isExport: true
                 },
             },
         }
@@ -177,14 +192,14 @@ export default {
         //     });
         //     return total;
         // }
-        totalPiutang() {
-            let total = 0
-            this.objTable.tabledata.rows.forEach(element => {
-                let val = element.AT16 ? element.AT16 : 0;
-                total += val;
-            });
-            return total;
-        }
+        // totalPiutang() {
+        //     let total = 0
+        //     this.objTable.tabledata.rows.forEach(element => {
+        //         let val = element.AT16 ? element.AT16 : 0;
+        //         total += val;
+        //     });
+        //     return total;
+        // }
     },
 
     methods: {
@@ -263,6 +278,31 @@ export default {
         showLink(id) {
             this.showModal = true;
             this.getDetail(id);
+        },
+
+        exportExcel() {
+            let excel = [];
+            let tglawal = moment(this.range.start).format('YYYYMMDD')
+            let tglakhir = moment(this.range.end).format('YYYYMMDD')
+            let filename = "Report_Invoice_"+tglawal+"_"+tglakhir
+
+            this.objTable.tabledata.rows.forEach(data => {
+                let adata = {
+                    no_invoice: data.AT11,
+                    tipe: data.AT12,
+                    tgl_invoice: data.AT13 ? moment(data.AT13).format('DD MMM YYYY') : '-',
+                    total_invoice: data.AT14,
+                    sudah_dibayar: data.AT15,
+                    sisa_piutang: data.AT16,
+                    pdf_surat_jalan: data.AT19 ? "https://b2b.ultrajaya.co.id/foto/pdfdo/"+data.AT19 : "",
+                    pdf_invoice: data.AT17 ? "https://b2b.ultrajaya.co.id/foto/pdfinv/"+data.AT17 : "",
+                    pdf_faktur_pajak: data.AT18 ? "https://b2b.ultrajaya.co.id/foto/pdfpajak/"+data.AT18 : ""
+                }
+
+                excel.push(adata);
+            });
+            
+            JSONToEXCELConvertor(JSON.stringify(excel), filename, true);
         }
     },
 

@@ -180,6 +180,7 @@
     </div>
 </template>
 <script>
+import { getCookie, deleteCookie } from "../assets/js/umum";
 
 export default {
     data: function () {

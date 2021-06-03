@@ -46,12 +46,15 @@
                 <button @click="getData" class="text-base capitalize mt-4 py-1.5 px-4 bg-indigo-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-indigo-500 focus:outline-none">get data</button>
             </div>
         </div>
-        <MyTable :obj="objTable"></MyTable>
+        <MyTable :obj="objTable" @exportexcel="exportExcel"></MyTable>
     </div>
 </template>
 <script>
 import MyTable from "../core/Table.vue";
 import moment from 'moment';
+import { JSONToEXCELConvertor } from '../../assets/js/exportExcel';
+import { mv } from "../../assets/js/mv";
+import { getCookie, panggilsafe } from "../../assets/js/umum";
 
 export default {
     components: {
@@ -81,9 +84,9 @@ export default {
             objTable: {
                 tabledata:{
                     columns: [{
-                        id : "TglGL",
+                        id : "TglTrans",
                         deskripsi : "Tanggal Transaksi",
-                        tipedata : "date"
+                        tipedata : "string"
                     },{
                         id : "ID_VAC",
                         deskripsi : "VA Number",
@@ -98,7 +101,8 @@ export default {
                         tipedata : "number"
                     }],
                     rows: [],
-                    isLoadData: false
+                    isLoadData: false,
+                    isExport: true
                 },
             },
         }
@@ -151,6 +155,26 @@ export default {
                 this.objTable.tabledata.isLoadData = false;
             });
         },
+
+        exportExcel() {
+            let excel = [];
+            let tglawal = moment(this.range.start).format('YYYYMMDD')
+            let tglakhir = moment(this.range.end).format('YYYYMMDD')
+            let filename = "Report_Hist_Pembayaran_"+tglawal+"_"+tglakhir
+
+            this.objTable.tabledata.rows.forEach(data => {
+                let adata = {
+                    tgl_transaksi: data.TglTrans,
+                    va_number: data.ID_VAC,
+                    bank: data.Bank,
+                    total: data.TotalAmount,
+                }
+
+                excel.push(adata);
+            });
+            
+            JSONToEXCELConvertor(JSON.stringify(excel), filename, true);
+        }
     },
 
     beforeMount() {

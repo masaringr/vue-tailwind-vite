@@ -6,9 +6,9 @@
                     <input v-model="searchData.nilai" type="text" class="py-2 px-3 text-sm border rounded-md text-gray-500 border-gray-300 focus:border-indigo-800 focus:outline-none" placeholder="Cari data...">
                 </div>
             </div>
-            <div class="col-span-4">
+            <div v-if="obj.tabledata.isExport" class="col-span-4">
                 <div class="flex justify-end">
-                    <button class="text-base capitalize py-1.5 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
+                    <button @click="exportExcel" class="text-base capitalize py-1.5 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
                 </div>
             </div>
         </div>
@@ -31,11 +31,30 @@
                                     <img src="../../assets/pdf24.png" alt="">
                                 </a>
                             </div>
-                            <div v-if="col.tipedata === 'pdf_from_b2b'">
+                            <div v-else-if="col.tipedata === 'pdf_from_b2b'">
                                 <a v-if="row[col.id]" :href="'https://b2b.ultrajaya.co.id/foto/pdfdo/'+row[col.id]" target="_blank">
                                     <img src="../../assets/pdf24.png" alt="">
                                 </a>
                             </div>
+                            <div v-else-if="col.tipedata === 'pdf_from_sj'">
+                                <a v-if="row[col.id]" :href="'https://b2b.ultrajaya.co.id/foto/pdfdo/'+row[col.id]" target="_blank">
+                                    <div class="flex items-center">
+                                        <img src="../../assets/pdf24.png" alt="">
+                                        <span class="cursor-pointer font-semibold text-blue-500 ml-1">{{row[col.id+'_NILAI']}}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div v-else-if="col.tipedata === 'pdf_from_inv'">
+                                <a v-if="row[col.id]" :href="'https://b2b.ultrajaya.co.id/foto/pdfinv/'+row[col.id]" target="_blank">
+                                    <img src="../../assets/pdf24.png" alt="">
+                                </a>
+                            </div>
+                            <div v-else-if="col.tipedata === 'pdf_from_fp'">
+                                <a v-if="row[col.id]" :href="'https://b2b.ultrajaya.co.id/foto/pdfpajak/'+row[col.id]" target="_blank">
+                                    <img src="../../assets/pdf24.png" alt="">
+                                </a>
+                            </div>
+                            
                             <div v-else-if="col.tipedata === 'link_detail'">
                                 <span @click="showLink(row[col.id])" class="cursor-pointer font-semibold text-blue-500">{{row[col.id]}}</span>
                             </div>
@@ -43,20 +62,20 @@
                                 <span>{{formatTanggal(row[col.id])}}</span>
                             </div>
                             <div v-else-if="col.tipedata === 'foto'">
-                                <span v-if="row[col.id] === 'add-image.png'">-</span>
+                                <span v-if="row[col.id] === 'add-image.png' || !row[col.id]">-</span>
                                 <span v-else @click="showPhoto(row[col.id])" class="cursor-pointer flex items-center text-indigo-800 text-sm font-semibold tracking-wide border-2 border-indigo-800 rounded-md px-1 py-0.5">
                                     <svg class="mr-1 stroke-current icon line text-indigo-800" width="24" height="24" id="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><polyline points="3.29 19.71 9 14 11 16 14 13 20.71 19.71" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><circle cx="11" cy="9" r="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></circle></svg>
                                     View
                                 </span>
                             </div>
                             <div v-else-if="col.tipedata === 'number'" class="text-right">
-                                <span class="tracking-wider">{{numeralFormat(row[col.id], '0,0[.]00')}}</span>
+                                <span class="tracking-wide font-mono">{{numeralFormat(row[col.id], '0,0.00')}}</span>
                             </div>
                             <div v-else-if="col.tipedata === 'integer'" class="text-right">
-                                <span class="tracking-wider">{{(row[col.id])}}</span>
+                                <span class="tracking-wider">{{numeralFormat(row[col.id], '0,0.00')}}</span>
                             </div>
                             <div v-else-if="col.tipedata === 'rupiah'" class="text-right">
-                                <span class="tracking-wider">Rp.{{numeralFormat(row[col.id], '0,0[.]00')}}</span>
+                                <span class="tracking-wide font-mono">Rp.{{numeralFormat(row[col.id], '0,0.00')}}</span>
                             </div>
                             <div v-else>
                                 <span>{{row[col.id]}}</span>
@@ -226,6 +245,10 @@ export default {
         showPhoto(filename) {
             this.$emit('showphoto', filename);
         },
+
+        exportExcel() {
+            this.$emit('exportexcel');
+        }
     }
 }
 </script>

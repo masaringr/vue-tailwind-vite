@@ -7,6 +7,7 @@
 
 <script>
 import DashboardDistributor from "./dashboard/d_distributor.vue";
+import { getCookie } from "../assets/js/umum";
 
 export default {
     components: {

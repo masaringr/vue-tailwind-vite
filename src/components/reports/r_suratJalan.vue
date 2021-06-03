@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <MyTable :obj="objTable" @showphoto="showPhoto" @blobToFile="downloadBlobFile"></MyTable>
+        <MyTable :obj="objTable" @showphoto="showPhoto" @exportexcel="exportExcel"></MyTable>
     </div>
     <vue-final-modal v-model="showModal">
         <div class="flex justify-center items-center h-screen">
@@ -84,6 +84,9 @@
 <script>
 import MyTable from "../core/Table.vue";
 import moment from 'moment';
+import { JSONToEXCELConvertor } from '../../assets/js/exportExcel';
+import { mv } from "../../assets/js/mv";
+import { panggilsafe, getCookie } from "../../assets/js/umum";
 
 export default {
     components: {
@@ -116,7 +119,7 @@ export default {
                 tabledata:{
                     columns: [{
                         id : "FilePDF",
-                        deskripsi : "File",
+                        deskripsi : "Scan DO",
                         tipedata : "pdf_from_b2b"
                     },{
                         id : "TglDO",
@@ -148,11 +151,12 @@ export default {
                         tipedata : "string"
                     },{
                         id : "File_Foto",
-                        deskripsi : "Foto",
+                        deskripsi : "Penerimaan",
                         tipedata : "foto"
                     }],
                     rows: [],
-                    isLoadData: false
+                    isLoadData: false,
+                    isExport: true
                 },
             },
         }
@@ -179,35 +183,6 @@ export default {
     },
 
     methods: {
-        downloadBlobFile(obj) {
-            // var myBlob = new File([obj.blob], {type: "application/pdf"});
-            // myBlob.lastModifiedDate = new Date();
-            // myBlob.name = obj.filename;
-            // myBlob.contentType = "application/pdf";
-            // myBlob.type = "application/pdf";
-
-            // "application/pdf"
-            const myBlob = new File([obj.blob], 
-                obj.filename, { 
-                    lastModified: new Date().getTime(), 
-                    type: "application/pdf"
-                }
-            )
-
-            console.log(myBlob);
-
-            const link = document.createElement('a');
-            // create a blobURI pointing to our Blob
-            link.href = URL.createObjectURL(myBlob);
-            link.target = '_blank';
-            link.download = obj.filename;
-            // some browser needs the anchor to be in the doc
-            document.body.append(link);
-            link.click();
-            link.remove();
-            URL.revokeObjectURL(link.href);
-        },
-
         updateCurrentPage() {
             this.currentPage = 1;
         },
@@ -254,6 +229,31 @@ export default {
         showPhoto(filename) {
             this.showModal = true;
             this.filePhoto = 'https://b2b.ultrajaya.co.id/foto/epod/'+filename;
+        },
+
+        exportExcel() {
+            let excel = [];
+            let tglawal = moment(this.range.start).format('YYYYMMDD')
+            let tglakhir = moment(this.range.end).format('YYYYMMDD')
+            let filename = "Report_Surat_Jalan_"+tglawal+"_"+tglakhir
+
+            this.objTable.tabledata.rows.forEach(data => {
+                let adata = {
+                    scan_do: data.FilePDF ? "https://b2b.ultrajaya.co.id/foto/pdfdo/"+data.FilePDF : "",
+                    tgl_do: data.TglDO,
+                    no_do: data.ID_DO,
+                    from: data.Dari,
+                    to: data.Tujuan,
+                    transporter: data.namatransporter,
+                    no_polisi: data.NoPolisi,
+                    status_terakhir: data.Desc_ListTrack,
+                    penerimaan: data.File_Foto && data.File_Foto !== "add-image.png"  ? "https://b2b.ultrajaya.co.id/foto/epod/"+data.File_Foto : "",
+                }
+
+                excel.push(adata);
+            });
+            
+            JSONToEXCELConvertor(JSON.stringify(excel), filename, true);
         }
     },
 

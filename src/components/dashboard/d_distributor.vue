@@ -222,7 +222,7 @@
             />
           </div>
           <div v-cloak class="mt-6">
-            <div class="w-1/2">
+            <!-- <div class="w-1/2">
               <span class="font-semibold text-base text-indigo-800">Summary Piutang {{ yearNow }}</span>
               <div v-for="(piutang, idx) in summaryPiutang" :key="idx">
                 <div class="mt-2 flex text-sm items-center">
@@ -230,9 +230,40 @@
                     <span>{{getMonthName(piutang.AT13)}}</span>
                   </div>
                   <div class="flex-auto text-right font-semibold text-gray-600">
-                    <span>Rp. {{numeralFormat(piutang.totalPiutang, '0,0[.]00')}}</span>
+                    <span class="font-mono">Rp. {{numeralFormat(piutang.totalPiutang, '0,0.00')}}</span>
                   </div>
                 </div>
+              </div>
+            </div> -->
+            <div class="w-1/2">
+              <span class="font-semibold text-base text-indigo-800">Outstanding Invoice</span>
+              <div>
+                <span v-if="outstandinginvoice.isLoading" class="my-2">
+                  <svg
+                    width="25"
+                    viewBox="-2 -2 42 42"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#2d3748"
+                    class="w-8 h-8"
+                  >
+                    <g fill="none" fill-rule="evenodd">
+                      <g transform="translate(1 1)" stroke-width="4">
+                        <circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+                        <path d="M36 18c0-9.94-8.06-18-18-18">
+                          <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="0 18 18"
+                            to="360 18 18"
+                            dur="1s"
+                            repeatCount="indefinite"
+                          ></animateTransform>
+                        </path>
+                      </g>
+                    </g>
+                  </svg>
+                </span>
+                <span v-else class="font-mono text-pink-600 font-bold text-xl">Rp.{{numeralFormat(outstandinginvoice.total, '0,0.00')}}</span>
               </div>
             </div>
             <div
@@ -286,6 +317,8 @@
 import PieChart from "../core/Pie.vue";
 import LineChart from "../core/Line.vue";
 import moment from 'moment';
+import { mv } from "../../assets/js/mv";
+import { getCookie, panggilsafe, panggilorc } from "../../assets/js/umum";
 
 export default {
   components: {
@@ -304,6 +337,10 @@ export default {
             DOClose: 0,
             DOOutStanding: 0,
             totalDO: 0,
+            outstandinginvoice: {
+              isLoading: false,
+              total: 0
+            },
             summaryPiutang : [],
             state: {
                 chartData: {
@@ -345,12 +382,17 @@ export default {
                     },
                     tooltips: {
                         enabled: true,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return 'Total Invoice : '+tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            }
+                        }
                     },
                     // events: [],
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
                             }
                         }]
                     }
@@ -400,6 +442,38 @@ export default {
     methods: {
         getMonthName(aDate) {
             return moment(aDate).format('MMMM');
+        },
+
+        getOutstandingInvoice() {
+            this.outstandinginvoice.isLoading = true;
+            let amv = new mv();
+
+            amv.SetData3(1, 1, moment().format('YYYYMMDD'));
+            amv.SetData3(2, 1, this.userID);
+
+            var aoth = {
+                sid: "",
+                serverdb: "1000ORC",
+                sp: "XITAR_READ_INV_OUTSTANDING",
+                mvitem: amv.Contents(),
+                action: "1",
+                othval: "",
+                key: "",
+            }
+            panggilorc(aoth)
+            .then((iMsg) => {
+                if (iMsg.meta.http_status === 200){
+                    this.outstandinginvoice.total = iMsg.data.nilai.Table[0].AT5;
+                    this.outstandinginvoice.isLoading = false;
+                } else {
+                    console.log(iMsg);
+                    this.outstandinginvoice.isLoading = false;
+                }
+            })
+            .catch((iMsg) => {
+                console.log(iMsg);
+                this.outstandinginvoice.isLoading = false;
+            });
         },
 
         getData() {
@@ -461,8 +535,8 @@ export default {
             panggilorc(aoth)
             .then((iMsg) => {
                 if (iMsg.meta.http_status === 200){
-                    this.objTableInvoice.tabledata.rows = iMsg.data.nilai.Table;
-                    this.mappingDataInvoice(iMsg.data.nilai.Table);
+                    this.objTableInvoice.tabledata.rows = iMsg.data.nilai.Table.reverse();
+                    this.mappingDataInvoice(this.objTableInvoice.tabledata.rows);
                     this.objTableInvoice.tabledata.isLoadData = false;
                 } else {
                     console.log(iMsg);
@@ -476,43 +550,65 @@ export default {
         },
 
         mappingDataInvoice(aData) {
-            // untuk mendapatkan summary piutang
+
+            // untuk mendapatkan total invoice per bulan
             const result = [...aData.reduce((r, o) => {
               const key = moment(o.AT13).format('MMMM');
               
               const item = r.get(key) || Object.assign({}, o, {
-                totalPiutang: 0,
+                totalInvoice: 0,
               });
               
-              item.totalPiutang += o.AT16;
+              item.totalInvoice += o.AT14;
 
               return r.set(key, item);
             }, new Map).values()];
 
-            this.summaryPiutang = result;
-            console.log(this.summaryPiutang);
-            // untuk mendapatkan summary piutang
-
-
-            // untuk mendapatkan summary surat jalan
-            let allMonth = [];
-            let months = [];
-            let monthLength = {};
-
-            aData.forEach((data, idx) => {
-                const bln = moment(data.AT13).format('MMMM');
-                allMonth.push(bln);
-                !months.includes(bln) ? months.push(bln) : true;
+            result.forEach(res => {
+              this.stateInvoice.chartData.labels.push(moment(res.AT13).format('MMMM'));
+              this.stateInvoice.chartData.datasets[0].data.push(res.totalInvoice);
             });
 
-            allMonth.forEach(function(i) { monthLength[i] = (monthLength[i]||0) + 1;});
+            // untuk mendapatkan total invoice per bulan
 
-            this.stateInvoice.chartData.labels = months
 
-            months.forEach(month => {
-                this.stateInvoice.chartData.datasets[0].data.push(monthLength[month]);
-            });
-            // untuk mendapatkan summary surat jalan
+            // untuk mendapatkan summary piutang per bulan
+            // const result = [...aData.reduce((r, o) => {
+            //   const key = moment(o.AT13).format('MMMM');
+              
+            //   const item = r.get(key) || Object.assign({}, o, {
+            //     totalPiutang: 0,
+            //   });
+              
+            //   item.totalPiutang += o.AT16;
+
+            //   return r.set(key, item);
+            // }, new Map).values()];
+
+            // this.summaryPiutang = result;
+            // console.log(this.summaryPiutang);
+            // untuk mendapatkan summary piutang per bulan
+
+
+            // untuk mendapatkan summary jumlah invoice per bulan
+            // let allMonth = [];
+            // let months = [];
+            // let monthLength = {};
+
+            // aData.forEach((data, idx) => {
+            //     const bln = moment(data.AT13).format('MMMM');
+            //     allMonth.push(bln);
+            //     !months.includes(bln) ? months.push(bln) : true;
+            // });
+
+            // allMonth.forEach(function(i) { monthLength[i] = (monthLength[i]||0) + 1;});
+
+            // this.stateInvoice.chartData.labels = months
+
+            // months.forEach(month => {
+            //     this.stateInvoice.chartData.datasets[0].data.push(monthLength[month]);
+            // });
+            // untuk mendapatkan summary jumlah invoice per bulan
         }
     },
     
@@ -525,6 +621,7 @@ export default {
     mounted() {
         this.getData();
         this.getDataInvoice();
+        this.getOutstandingInvoice();
     }
 };
 </script>
