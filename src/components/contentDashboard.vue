@@ -2,16 +2,21 @@
     <div v-if="tipeLogin === 'distributor'" class="h-fit-6 bg-gray-50 rounded-lg p-6 overflow-y-auto overflow-x-hidden scrollbar-thumb-rounded scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
         <DashboardDistributor />
     </div>
+    <div v-else-if="tipeLogin === 'vendor_purchasing'" class="h-fit-6 bg-gray-50 rounded-lg p-6 overflow-y-auto overflow-x-hidden scrollbar-thumb-rounded scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <DashboardVendor />
+    </div>
     <div v-else>tidak memiliki akses</div>
 </template>
 
 <script>
 import DashboardDistributor from "./dashboard/d_distributor.vue";
+import DashboardVendor from "./dashboard/d_vendor.vue";
 import { getCookie } from "../assets/js/umum";
 
 export default {
     components: {
-        DashboardDistributor
+        DashboardDistributor,
+        DashboardVendor
     },
     data: function () {
         return{

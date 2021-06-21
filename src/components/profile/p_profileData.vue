@@ -3,8 +3,8 @@
     class="h-fit-10--5 bg-gray-50 rounded-lg p-6 overflow-y-auto overflow-x-hidden scrollbar-thumb-rounded scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
   >
     <div class="min-h-28 bg-white rounded-lg shadow-md p-4">
-      <div v-if="!onEdit" class="grid grid-cols-12 gap-6">
-        <div class="col col-span-2">
+      <div v-if="!onEdit" class="grid grid-cols-10 gap-6">
+        <div class="col-span-10 md:col-span-2">
           <svg
             id="bold"
             enable-background="new 0 0 32 32"
@@ -37,54 +37,56 @@
             </g>
           </svg>
         </div>
-        <div class="col-span-10">
-          <table class="no table-noborder">
-            <tbody>
-              <tr>
-                <td class="capitalize">ID</td>
-                <td>:</td>
-                <td colspan="2" class="capitalize font-semibold">1231</td>
-              </tr>
-              <tr>
-                <td class="capitalize">nama vendor</td>
-                <td>:</td>
-                <td colspan="2" class="capitalize font-semibold">VIARDI BINTANG TERANG PT, MAKASAR</td>
-              </tr>
-              <tr>
-                <td class="capitalize">password</td>
-                <td>:</td>
-                <td class="font-semibold">
-                  <div v-if="passwordVisible">
-                    <span>{{password}}</span>
-                  </div>
-                  <div v-else>
-                    <span v-for="(p,idx) in password.length" :key="idx">*</span>
-                  </div>
-                </td>
-                <td>
-                  <div @click="viewHidePassword" class="w-6 bg-purple-500 rounded-md p-1 cursor-pointer">
-                    <img v-if="passwordVisible" class="w-full h-auto" src="../../assets/hide.png" alt="">
-                    <img v-else class="w-full h-auto" src="../../assets/eye.png" alt="">
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="capitalize">alamat</td>
-                <td>:</td>
-                <td colspan="2" class="font-normal">jalan jalan ke pasar minggu</td>
-              </tr>
-              <tr>
-                <td class="capitalize">e-mail</td>
-                <td>:</td>
-                <td colspan="2" class="font-normal">viardi@makassar.com</td>
-              </tr>
-              <tr>
-                <td class="capitalize">HP (WA)</td>
-                <td>:</td>
-                <td colspan="2" class="capitalize font-normal">0811112222333</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="col-span-10 md:col-span-8">
+          <div class="overflow-y-hidden overflow-x-auto scrollbar-thumb-rounded scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <table class="no table-noborder">
+              <tbody>
+                <tr>
+                  <td class="capitalize">ID</td>
+                  <td>:</td>
+                  <td colspan="2" class="capitalize font-semibold">1231</td>
+                </tr>
+                <tr>
+                  <td class="capitalize">nama vendor</td>
+                  <td>:</td>
+                  <td colspan="2" class="capitalize font-semibold">VIARDI BINTANG TERANG PT, MAKASAR</td>
+                </tr>
+                <tr>
+                  <td class="capitalize">password</td>
+                  <td>:</td>
+                  <td class="font-semibold">
+                    <div v-if="passwordVisible">
+                      <span>{{password}}</span>
+                    </div>
+                    <div v-else>
+                      <span v-for="(p,idx) in password.length" :key="idx">*</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div @click="viewHidePassword" class="w-6 bg-purple-500 rounded-md p-1 cursor-pointer">
+                      <img v-if="passwordVisible" class="w-full h-auto" src="../../assets/hide.png" alt="">
+                      <img v-else class="w-full h-auto" src="../../assets/eye.png" alt="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="capitalize">alamat</td>
+                  <td>:</td>
+                  <td colspan="2" class="font-normal">jalan jalan ke pasar minggu</td>
+                </tr>
+                <tr>
+                  <td class="capitalize">e-mail</td>
+                  <td>:</td>
+                  <td colspan="2" class="font-normal">viardi@makassar.com</td>
+                </tr>
+                <tr>
+                  <td class="capitalize">HP (WA)</td>
+                  <td>:</td>
+                  <td colspan="2" class="capitalize font-normal">0811112222333</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div class="pt-5 pl-3 w-40">
             <button
               @click="edit"
@@ -122,9 +124,9 @@
       </div>
       <div v-else>
         <form>
-          <div class="grid grid-cols-12 gap-6">
-            <div class="col-span-6">
-              <div class="grid grid-cols-12 gap-6">
+          <div class="grid grid-cols-12 gap-3">
+            <div class="col-span-12 md:col-span-6">
+              <div class="grid grid-cols-12 gap-3">
                 <div class="col-span-12">
                   <div class="relative mb-4">
                     <label

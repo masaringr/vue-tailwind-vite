@@ -1,14 +1,14 @@
 <template>
     <div class="w-full border rounded-md p-4">
         <div class="grid grid-cols-6 gap-4 mb-4">
-            <div class="col-span-2">
+            <div class="col-span-6 md:col-span-2 order-last md:order-first">
                 <div>
-                    <input v-model="searchData.nilai" type="text" class="py-2 px-3 text-sm border rounded-md text-gray-500 border-gray-300 focus:border-indigo-800 focus:outline-none" placeholder="Cari data...">
+                    <input v-model="searchData.nilai" type="text" class="w-full py-2 px-3 text-sm border rounded-md text-gray-500 border-gray-300 focus:border-indigo-800 focus:outline-none" placeholder="Cari data...">
                 </div>
             </div>
-            <div v-if="obj.tabledata.isExport" class="col-span-4">
+            <div v-if="obj.tabledata.isExport" class="col-span-6 md:col-span-4">
                 <div class="flex justify-end">
-                    <button @click="exportExcel" class="text-base capitalize py-1.5 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
+                    <button @click="exportExcel" class="w-full md:w-auto text-base capitalize py-1.5 px-4 bg-red-600 rounded whitespace-nowrap font-normal text-white tracking-wide hover:bg-red-500 focus:outline-none">export</button>
                 </div>
             </div>
         </div>
@@ -97,9 +97,33 @@
                 </tbody>
             </table>
         </div>
+        <div v-if="obj.tabledata.footer" class="w-full flex flex-col items-end p-3">
+            <div class="w-1/3 flex flex-col text-sm text-gray-500">
+                <div class="flex justify-between">
+                    <span class="text-sm font-semibold">Sub Jumlah</span>
+                    <span class="tracking-wide font-mono ">{{numeralFormat(obj.tabledata.footer.subjumlah, '0,0.00')}}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-sm font-semibold">Potongan</span>
+                    <span class="tracking-wide font-mono ">{{numeralFormat(obj.tabledata.footer.potongan, '0,0.00')}}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-sm font-semibold">Jumlah DPP</span>
+                    <span class="tracking-wide font-mono ">{{numeralFormat((obj.tabledata.footer.subjumlah + obj.tabledata.footer.potongan), '0,0.00')}}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-sm font-semibold">PPN</span>
+                    <span class="tracking-wide font-mono ">{{numeralFormat((obj.tabledata.footer.ppn), '0,0.00')}}</span>
+                </div>
+                <div class="flex justify-between border-t mt-1.5 pt-1.5">
+                    <span class="text-sm font-semibold">Total Bayar</span>
+                    <span class="tracking-wide font-mono ">{{numeralFormat(((obj.tabledata.footer.subjumlah + obj.tabledata.footer.potongan) + obj.tabledata.footer.ppn), '0,0.00')}}</span>
+                </div>
+            </div>
+        </div>
         <div class="mt-4 grid grid-cols-6 gap-4">
-            <div class="col-span-3">
-                <div class="flex justify-start items-center">
+            <div class="col-span-6 md:col-span-3">
+                <div class="flex justify-center md:justify-start items-center">
                     <span class="text-sm text-gray-500">Show</span>
                     <select name="showby" id="show-by" v-model="showBy.nilai" class="py-1 px-2 border-2 rounded-md font-semibold text-indigo-500 mx-3 text-sm focus:outline-none focus:border-indigo-300">
                         <option v-for="(option, idx) in showBy.options" :key="option.id+'-'+idx" :value="option.nilai">{{option.text}}</option>
@@ -107,8 +131,8 @@
                     <span class="text-sm text-gray-500">From <b>{{totalData}}</b> Entries</span>
                 </div>
             </div>
-            <div class="col-span-3">
-                <div class="flex justify-end items-center h-full">
+            <div class="col-span-6 md:col-span-3">
+                <div class="flex justify-center md:justify-end items-center h-full">
                     <v-pagination
                         v-model="currentPage"
                         :pages="totalPage"

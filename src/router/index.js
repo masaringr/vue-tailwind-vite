@@ -82,7 +82,8 @@ const routes = [{
     meta: {
       deskripsi : "panel profile"
     },
-    redirect: config.baseURL+"/profile/profile_data",
+    redirect: getCookie('tipelogin') == 'vendor_purchasing' ? config.baseURL+"/profile/personal_data" : config.baseURL+"/profile/profile_data",
+    // redirect: config.baseURL+"/profile/profile_data",
     children: [{
       path: 'personal_data',
       name: 'c_pdata',
@@ -95,6 +96,19 @@ const routes = [{
       path: 'profile_data',
       name: 'c_profile',
       component: () => import('../components/profile/p_profileData.vue')
+    }]
+  }, {
+    path: config.baseURL+"/transaksi",
+    name: "transaksi",
+    component: () => import('../components/contentTransaksi.vue'),
+    meta: {
+      deskripsi : "activity transaksi"
+    },
+    redirect: config.baseURL+"/transaksi/penerimaan",
+    children: [{
+      path: 'penerimaan',
+      name: 't_penerimaan',
+      component: () => import('../components/transaksi/t_penerimaan.vue')
     }]
   }
 ];

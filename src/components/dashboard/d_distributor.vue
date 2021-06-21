@@ -1,6 +1,7 @@
 <template>
   <div class="grid grid-cols-12 gap-6">
-    <div v-if="userPermission === 'all' || userPermission === 'operasional'" class="col-span-3">
+    <!-- <div v-if="userPermission === 'all' || userPermission === 'operasional'" class="col-span-12 lg:col-span-3"> -->
+    <div v-if="userData.menu[0].content.includes('summary-sj')" class="col-span-12 lg:col-span-3">
       <div class="bg-white shadow-lg p-4 rounded-lg">
         <div class="mb-4">
           <span class="font-semibold text-base text-indigo-800"
@@ -159,7 +160,8 @@
         </div>
       </div>
     </div>
-    <div v-if="userPermission === 'all'" class="col-span-9">
+    <!-- <div v-if="userPermission === 'all'" class="col-span-12 lg:col-span-9"> -->
+    <div v-if="userData.menu[0].content.includes('summary-inv')" class="col-span-12 lg:col-span-9">
       <div class="bg-white shadow-lg p-4 rounded-lg">
         <div class="mb-4">
           <span class="font-semibold text-base text-indigo-800"
@@ -235,7 +237,7 @@
                 </div>
               </div>
             </div> -->
-            <div class="w-1/2">
+            <div class="md:w-1/2">
               <span class="font-semibold text-base text-indigo-800">Outstanding Invoice</span>
               <div>
                 <span v-if="outstandinginvoice.isLoading" class="my-2">
@@ -310,6 +312,11 @@
         </div>
       </div>
     </div>
+    <div v-if="userData.menu[0].content.includes('no-content')" class="col-span-12">
+      <div class="flex items-center pt-6">
+        <span class="capitalize text-base font-semibold text-gray-400">tidak ada content</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -327,6 +334,8 @@ export default {
     },
     data: function () {
         return{
+            storageKey: "UIS_APP",
+            userData: [],
             userPermission: "",
             text1: "",
             judul: "",
@@ -622,6 +631,11 @@ export default {
         this.getData();
         this.getDataInvoice();
         this.getOutstandingInvoice();
+    },
+
+    created() {
+      const storage = localStorage.getItem(this.storageKey)
+      this.userData = JSON.parse(storage)
     }
 };
 </script>

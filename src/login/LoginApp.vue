@@ -109,16 +109,46 @@ export default {
     },
     data: function () {
         return{
+            storageKey: "UIS_APP",
             iconLoading: false,
             text1: "",
             baseURL: "/uis",
             userLogin: [{
+                id: "purchasing",
+                username: "purchasing",
+                password: "ujmi",
+                displayName: "Purchasing",
+                tipe: "vendor_purchasing",
+                permission: "all",
+                menu: [{
+                    id: "dashboard",
+                    link: "/dashboard",
+                    icon: `<rect x="3" y="3" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="3" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="3" y="16" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="12" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>`,
+                    judul: "dashboard",
+                    content: ['no-content']
+                }, {
+                    id: "profile",
+                    link: "/profile",
+                    icon: `<path d="M19,13v7a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V13" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path><path d="M16.5,10.75A2.25,2.25,0,0,1,14.25,13h0A2.25,2.25,0,0,1,12,10.75m4.5,0A2.25,2.25,0,0,0,18.75,13h0A2.25,2.25,0,0,0,21,10.75h0a5.22,5.22,0,0,0-.21-1.47L19.21,3.73a1,1,0,0,0-1-.73H12M7.5,10.75A2.25,2.25,0,0,0,9.75,13h0A2.25,2.25,0,0,0,12,10.75M12,3H5.75a1,1,0,0,0-1,.73L3.21,9.28A5.22,5.22,0,0,0,3,10.75H3A2.25,2.25,0,0,0,5.25,13h0A2.25,2.25,0,0,0,7.5,10.75" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>`,
+                    judul: "profile",
+                    children: [{
+                        id: "profile_personaldata",
+                        link: "/profile/personal_data",
+                        icon: `<path d="M8,20H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3h8.59a1,1,0,0,1,.7.29l3.42,3.42a1,1,0,0,1,.29.7V9" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M15.05,21H12.22V18.17l5.66-5.66a1,1,0,0,1,1.41,0l1.42,1.42a1,1,0,0,1,0,1.41Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>`,
+                        judul: "personal data"
+                    }]
+                }]
+            }, {
                 id: "1111",
                 username: "1111",
                 password: "1111",
                 displayName: "Super Admin",
                 tipe: "admin",
-                permission: "all"
+                permission: "all",
+                menu: []
             }, {
                 id: "2222",
                 username: "2222",
@@ -139,14 +169,134 @@ export default {
                 password: "ujmi",
                 displayName: "VIARDI",
                 tipe: "distributor",
-                permission: "all"
+                permission: "all",
+                menu: [{
+                    id: "dashboard",
+                    link: "/dashboard",
+                    icon: `<rect x="3" y="3" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="3" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="3" y="16" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="12" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>`,
+                    judul: "dashboard",
+                    content: ['summary-sj', 'summary-inv']
+                }, {
+                    id: "report",
+                    link: "/reportdist",
+                    icon: `<path d="M4,4H20a0,0,0,0,1,0,0V16a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V4A0,0,0,0,1,4,4Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                        <line x1="3" y1="4" x2="21" y2="4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="10.4" y1="17" x2="8" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="13.6" y1="17" x2="16" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="12" y1="13" x2="12" y2="8" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="16" y1="13" x2="16" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="8" y1="13" x2="8" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`,
+                    judul: "report",
+                    children: [{
+                        id: "report_invoice",
+                        link: "/reportdist/invoice",
+                        judul: "invoice",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }, {
+                        id: "report_suratjalan",
+                        link: "/reportdist/surat_jalan",
+                        judul: "surat jalan",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }, {
+                        id: "report_histpembayaran",
+                        link: "/reportdist/history_pembayaran",
+                        judul: "history pembayaran",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }]
+                }, {
+                    id: "transaksi",
+                    link: "/transaksi",
+                    icon: `<path id="primary" d="M17,16v4a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16a1,1,0,0,1,1,1v6M7,6A1,1,0,0,0,8,7h4a1,1,0,0,0,1-1V3H7Zm13.71,4.69-1.4-1.4a1,1,0,0,0-1.4,0L13,14.2V17h2.8l4.91-4.91A1,1,0,0,0,20.71,10.69Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
+                    </svg>`,
+                    judul: "transaksi",
+                    children: [{
+                        id: "trans_penerimaan",
+                        link: "/transaksi/penerimaan",
+                        judul: "penerimaan",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }]
+                }, {
+                    id: "profile",
+                    link: "/profile",
+                    icon: `<path d="M19,13v7a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V13" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path><path d="M16.5,10.75A2.25,2.25,0,0,1,14.25,13h0A2.25,2.25,0,0,1,12,10.75m4.5,0A2.25,2.25,0,0,0,18.75,13h0A2.25,2.25,0,0,0,21,10.75h0a5.22,5.22,0,0,0-.21-1.47L19.21,3.73a1,1,0,0,0-1-.73H12M7.5,10.75A2.25,2.25,0,0,0,9.75,13h0A2.25,2.25,0,0,0,12,10.75M12,3H5.75a1,1,0,0,0-1,.73L3.21,9.28A5.22,5.22,0,0,0,3,10.75H3A2.25,2.25,0,0,0,5.25,13h0A2.25,2.25,0,0,0,7.5,10.75" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>`,
+                    judul: "profile",
+                    children: [{
+                        id: "profile_profiledata",
+                        link: "/profile/profile_data",
+                        icon: `<path d="M8,20H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3h8.59a1,1,0,0,1,.7.29l3.42,3.42a1,1,0,0,1,.29.7V9" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M15.05,21H12.22V18.17l5.66-5.66a1,1,0,0,1,1.41,0l1.42,1.42a1,1,0,0,1,0,1.41Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>`,
+                        judul: "profile data"
+                    }, {
+                        id: "profile_changepass",
+                        link: "/profile/change_password",
+                        icon: `<rect x="8" y="11" width="8" height="6" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><path d="M3,7V4A1,1,0,0,1,4,3H7" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M21,7V4a1,1,0,0,0-1-1H17" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M3,17v3a1,1,0,0,0,1,1H7" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M21,17v3a1,1,0,0,1-1,1H17" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M12,7h0a3,3,0,0,1,3,3v1a0,0,0,0,1,0,0H9a0,0,0,0,1,0,0V10A3,3,0,0,1,12,7Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>`,
+                        judul: "change password"
+                    }]
+                }]
             }, {
                 id: "1231",
                 username: "1231-opr",
                 password: "ujmi",
                 displayName: "VIARDI",
                 tipe: "distributor",
-                permission: "operasional"
+                permission: "operasional",
+                menu: [{
+                    id: "dashboard",
+                    link: "/dashboard",
+                    icon: `<rect x="3" y="3" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="3" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="3" y="16" width="7" height="5" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>
+                        <rect x="14" y="12" width="7" height="9" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect>`,
+                    judul: "dashboard",
+                    content: ['summary-sj']
+                }, {
+                    id: "report",
+                    link: "/reportdist",
+                    icon: `<path d="M4,4H20a0,0,0,0,1,0,0V16a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V4A0,0,0,0,1,4,4Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
+                        <line x1="3" y1="4" x2="21" y2="4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="10.4" y1="17" x2="8" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="13.6" y1="17" x2="16" y2="20" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="12" y1="13" x2="12" y2="8" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="16" y1="13" x2="16" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>
+                        <line x1="8" y1="13" x2="8" y2="10" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`,
+                    judul: "report",
+                    children: [{
+                        id: "report_suratjalan",
+                        link: "/reportdist/surat_jalan",
+                        judul: "surat jalan",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }]
+                }, {
+                    id: "transaksi",
+                    link: "/transaksi",
+                    icon: `<path id="primary" d="M17,16v4a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16a1,1,0,0,1,1,1v6M7,6A1,1,0,0,0,8,7h4a1,1,0,0,0,1-1V3H7Zm13.71,4.69-1.4-1.4a1,1,0,0,0-1.4,0L13,14.2V17h2.8l4.91-4.91A1,1,0,0,0,20.71,10.69Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
+                    </svg>`,
+                    judul: "transaksi",
+                    children: [{
+                        id: "trans_penerimaan",
+                        link: "/transaksi/penerimaan",
+                        judul: "penerimaan",
+                        icon: `<path d="M18,4a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V5A1,1,0,0,1,6,4" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><rect x="9" y="3" width="6" height="3" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><line x1="9" y1="11" x2="15" y2="11" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><line x1="9" y1="15" x2="15" y2="15" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line>`
+                    }]
+                }, {
+                    id: "profile",
+                    link: "/profile",
+                    icon: `<path d="M19,13v7a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V13" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path><path d="M16.5,10.75A2.25,2.25,0,0,1,14.25,13h0A2.25,2.25,0,0,1,12,10.75m4.5,0A2.25,2.25,0,0,0,18.75,13h0A2.25,2.25,0,0,0,21,10.75h0a5.22,5.22,0,0,0-.21-1.47L19.21,3.73a1,1,0,0,0-1-.73H12M7.5,10.75A2.25,2.25,0,0,0,9.75,13h0A2.25,2.25,0,0,0,12,10.75M12,3H5.75a1,1,0,0,0-1,.73L3.21,9.28A5.22,5.22,0,0,0,3,10.75H3A2.25,2.25,0,0,0,5.25,13h0A2.25,2.25,0,0,0,7.5,10.75" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>`,
+                    judul: "profile",
+                    children: [{
+                        id: "profile_profiledata",
+                        link: "/profile/profile_data",
+                        icon: `<path d="M8,20H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3h8.59a1,1,0,0,1,.7.29l3.42,3.42a1,1,0,0,1,.29.7V9" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M15.05,21H12.22V18.17l5.66-5.66a1,1,0,0,1,1.41,0l1.42,1.42a1,1,0,0,1,0,1.41Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>`,
+                        judul: "profile data"
+                    }, {
+                        id: "profile_changepass",
+                        link: "/profile/change_password",
+                        icon: `<rect x="8" y="11" width="8" height="6" rx="1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></rect><path d="M3,7V4A1,1,0,0,1,4,3H7" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M21,7V4a1,1,0,0,0-1-1H17" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M3,17v3a1,1,0,0,0,1,1H7" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M21,17v3a1,1,0,0,1-1,1H17" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path d="M12,7h0a3,3,0,0,1,3,3v1a0,0,0,0,1,0,0H9a0,0,0,0,1,0,0V10A3,3,0,0,1,12,7Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>`,
+                        judul: "change password"
+                    }]
+                }]
             }]
         }
     },
@@ -181,6 +331,9 @@ export default {
                     setCookie("userid", userValid[0].id);
                     setCookie("tipelogin", userValid[0].tipe);
                     setCookie("user_permission", userValid[0].permission);
+
+                    localStorage.setItem(this.storageKey, JSON.stringify(userValid[0]));
+
                     this.iconLoading = false;
 
                     window.location.href = this.baseURL+"/dashboard.html"
@@ -258,11 +411,19 @@ export default {
                 className: "danger-notif",
                 stopOnFocus: true
             }).showToast();
+        },
+
+        isStorageExist() {
+            if (typeof (Storage) === undefined) {
+                alert("Browser kamu tidak mendukung local storage");
+                return false
+            }
+            return true;
         }
     },
 
     mounted() {
-        
+        this.isStorageExist();
     }
 }
 </script>
